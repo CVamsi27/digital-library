@@ -1,2 +1,1 @@
-// component exports
-export { Card } from "./card";
+export { CardCustom, NavbarCustom } from "./components";
