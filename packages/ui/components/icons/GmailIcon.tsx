@@ -1,4 +1,8 @@
-export const GmailIcon = (props) => (
+"use client";
+
+import { SVGProps } from "react";
+
+export const GmailIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="2em"
     height="2em"

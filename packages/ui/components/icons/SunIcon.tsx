@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import { SVGProps } from "react";
 
-export const SunIcon = (props) => (
+export const SunIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-hidden="true"
     focusable="false"

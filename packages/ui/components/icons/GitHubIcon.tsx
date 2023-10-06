@@ -1,4 +1,8 @@
-export const GitHubIcon = (props) => (
+"use client";
+
+import { SVGProps } from "react";
+
+export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill="#000000"
     width="2em"
