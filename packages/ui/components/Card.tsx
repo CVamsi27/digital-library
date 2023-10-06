@@ -1,6 +1,8 @@
-'use client'
+"use client";
 
-import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
+import { CartIcon } from "./icons/CartIcon";
+import { EditIcon } from "./icons/EditIcon";
 
 export function CardCustom() {
   const list = [
@@ -29,20 +31,37 @@ export function CardCustom() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 m-10">
       {list.map((item, index) => (
-        <Card shadow="sm" key={index} isPressable className="m-10 p-2" onPress={() => console.log("item pressed")}>
+        <Card
+          shadow="sm"
+          key={index}
+          className="m-10 p-2"
+          onPress={() => console.log("item pressed")}
+        >
           <CardBody className="overflow-visible p-0">
             <Image
               shadow="sm"
               radius="lg"
               width="100%"
               alt={item.title}
-              className="object-cover h-[240px] w-[140px] justify-center"
+              className="object-cover h-[240px] w-[140px]"
               src={item.img}
             />
           </CardBody>
           <CardFooter className="text-small justify-between">
-            <b>{item.title}</b>
-            <p className="text-default-500">{item.price}</p>
+            <div className="w-full mt-2">
+              <div className="flex justify-between">
+                <b>{item.title}</b>
+                <p className="text-default-500">{item.price}</p>
+              </div>
+              <div className="flex mt-4 justify-end">
+                <Button isIconOnly>
+                  <EditIcon />
+                </Button>
+                <Button isIconOnly className="ml-2">
+                  <CartIcon />
+                </Button>
+              </div>
+            </div>
           </CardFooter>
         </Card>
       ))}

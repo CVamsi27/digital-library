@@ -1,1 +1,6 @@
-export { CardCustom, NavbarCustom } from "./components";
+export {
+  CardCustom,
+  NavbarCustom,
+  HomePage,
+  ThemeSwitcher,
+} from "./components";
