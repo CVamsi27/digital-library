@@ -3,4 +3,6 @@ export {
   NavbarCustom,
   HomePage,
   ThemeSwitcher,
+  CardAddModal,
+  CartTable
 } from "./components";

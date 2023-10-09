@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
-import { GitHubIcon } from "./icons/GitHubIcon";
-import { GmailIcon } from "./icons/GmailIcon";
+import { GitHubIcon } from "../icons/GitHubIcon";
+import { GmailIcon } from "../icons/GmailIcon";
 
 export function HomePage() {
   return (

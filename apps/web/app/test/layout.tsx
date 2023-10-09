@@ -7,8 +7,8 @@ import { ThemeSwitcher } from "ui";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Welcome Page",
-  description: "Welcome Page",
+  title: "Test",
+  description: "Test",
 };
 
 export default function RootLayout({
@@ -22,8 +22,10 @@ export default function RootLayout({
         <Providers>
           <header>
             <nav>
-              <div className="flex justify-end m-2 p-0">
-                <ThemeSwitcher />
+              <div className="relative m-0 p-0">
+                <div className="absolute top-0 right-0 m-2 p-0">
+                  <ThemeSwitcher />
+                </div>
               </div>
             </nav>
           </header>

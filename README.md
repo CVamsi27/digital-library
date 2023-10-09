@@ -20,7 +20,7 @@
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd digital-library
 pnpm build
 ```
 
@@ -29,6 +29,6 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd digital-library
 pnpm dev
 ```

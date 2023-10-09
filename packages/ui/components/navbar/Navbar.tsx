@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import {
   Navbar,
   NavbarBrand,
@@ -12,16 +13,19 @@ import {
   Avatar,
   Button,
 } from "@nextui-org/react";
-import { AcmeLogo } from "./Logo";
-import { SearchIcon } from "./icons/SearchIcon";
-import { CartIcon } from "./icons/CartIcon";
-import { ThemeSwitcher } from "./ThemeSwitcher";
-import { GitHubIcon } from "./icons/GitHubIcon";
+import { AcmeLogo } from "../icons/Logo";
+import { SearchIcon } from "../icons/SearchIcon";
+import { CartIcon } from "../icons/CartIcon";
+import { ThemeSwitcher } from "../theme/ThemeSwitcher";
+import { GitHubIcon } from "../icons/GitHubIcon";
+import Link from 'next/link'
 
 export function NavbarCustom() {
   const isBordered = false;
+  const router = useRouter();
   return (
     <Navbar isBordered={isBordered} maxWidth="full">
+      <Link href="/categories">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
           <AcmeLogo />
@@ -30,6 +34,7 @@ export function NavbarCustom() {
           </p>
         </NavbarBrand>
       </NavbarContent>
+      </Link>
 
       <NavbarContent as="div" className="items-center" justify="end">
         <ThemeSwitcher />
@@ -61,7 +66,7 @@ export function NavbarCustom() {
             <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
-        <Button isIconOnly>
+        <Button isIconOnly onPress={() => router.push('/cart')}>
           <CartIcon />
         </Button>
         <Dropdown placement="bottom-end">

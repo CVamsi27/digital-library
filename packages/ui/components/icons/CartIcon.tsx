@@ -10,7 +10,6 @@ export const CartIcon = (props: SVGProps<SVGSVGElement>) => (
     focusable="false"
     height="2em"
     role="presentation"
-    // viewBox="0 0 24 24"
     width="2em"
   >
     <path
