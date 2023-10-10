@@ -1,8 +1,8 @@
-import { CategoryCard } from "ui";
+import { LoginView } from "ui";
 export default function Page(): JSX.Element {
   return (
     <>
-      <CategoryCard />
+      <LoginView />
     </>
   );
 }

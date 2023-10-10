@@ -2,13 +2,13 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "./providers";
-import { NavbarCustom } from "ui";
+import { ThemeSwitcher } from "ui";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Shop",
-  description: "Collection of books",
+  title: "Login",
+  description: "Login",
   icons: {
     icon: "https://cdn.imgbin.com/23/15/24/imgbin-computer-icons-warranty-data-uri-scheme-font-warranty-qRwNmLRi3PNn5Acb5NrYi4gkg.jpg",
   },
@@ -25,7 +25,9 @@ export default function RootLayout({
         <Providers>
           <header>
             <nav>
-              <NavbarCustom />
+              <div className="flex justify-end m-2 p-0">
+                <ThemeSwitcher />
+              </div>
             </nav>
           </header>
           <main>{children}</main>

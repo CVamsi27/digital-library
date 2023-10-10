@@ -1,16 +1,12 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
+  NavbarItem,
   Input,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
   Button,
 } from "@nextui-org/react";
 import { AcmeLogo } from "../icons/Logo";
@@ -18,23 +14,47 @@ import { SearchIcon } from "../icons/SearchIcon";
 import { CartIcon } from "../icons/CartIcon";
 import { ThemeSwitcher } from "../theme/ThemeSwitcher";
 import { GitHubIcon } from "../icons/GitHubIcon";
-import Link from 'next/link'
+import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 export function NavbarCustom() {
-  const isBordered = false;
   const router = useRouter();
+  const params = usePathname();
   return (
-    <Navbar isBordered={isBordered} maxWidth="full">
-      <Link href="/categories">
-      <NavbarContent justify="start">
-        <NavbarBrand className="mr-4">
-          <AcmeLogo />
-          <p className="sm:block font-bold text-inherit ml-2">
-            Digital-Library
-          </p>
-        </NavbarBrand>
-      </NavbarContent>
+    <Navbar isBordered maxWidth="full">
+      <Link href="/">
+        <NavbarContent justify="start">
+          <NavbarBrand className="mr-4">
+            <AcmeLogo />
+            <p className="sm:block font-bold text-inherit ml-2">
+              Digital-Library
+            </p>
+          </NavbarBrand>
+        </NavbarContent>
       </Link>
+
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem isActive={params === "/"}>
+          <Link className={params === "/" ? "text-primary-500": ""} href="/">
+            Home
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive={params === "/categories"}>
+          <Link className={params === "/categories" ? "text-primary-500": ""} href="/categories">
+            Category
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive={params.includes("/collection/")}>
+          <Link className={params.includes("/collection/") ? "text-primary-500": ""} href="/collection/all">
+            Collection
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive={params === "/cart"}>
+          <Link className={params === "/cart" ? "text-primary-500": ""} href="/cart">
+            Cart
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
         <ThemeSwitcher />
@@ -66,30 +86,12 @@ export function NavbarCustom() {
             <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
-        <Button isIconOnly onPress={() => router.push('/cart')}>
+        <Button isIconOnly onPress={() => router.push("/cart")}>
           <CartIcon />
         </Button>
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              as="button"
-              className="transition-transform"
-              name="Vamsi Krishna"
-              size="md"
-              src="https://www.rizzgpt.app/_next/image?url=https%3A%2F%2Frizz-public-assets.s3.us-west-2.amazonaws.com%2Fimages%2Fee709eb9-1a2b-4f4a-95f1-a0b4f642696f.png&w=3840&q=75"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">cvamsik99@gmail.com</p>
-            </DropdownItem>
-            <DropdownItem key="profile">My Profile</DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <Button key="logout" color="danger" onPress={() => router.push("/login")}>
+          Log Out
+        </Button>
       </NavbarContent>
     </Navbar>
   );

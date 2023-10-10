@@ -1,8 +1,10 @@
 import { Button } from "@nextui-org/react";
 import { GitHubIcon } from "../icons/GitHubIcon";
 import { GmailIcon } from "../icons/GmailIcon";
+import { useRouter } from "next/navigation";
 
 export function HomePage() {
+  const router = useRouter();
   return (
     <div className="no-scrollbar">
       <div className="relative isolate px-0 pt-0 lg:px-8">
@@ -33,6 +35,11 @@ export function HomePage() {
                 }
               >
                 <GmailIcon />
+              </Button>
+            </div>
+            <div className="mt-8 items-center justify-center">
+              <Button color="primary" onPress={() => router.push("/categories")}>
+                Get Started
               </Button>
             </div>
           </div>

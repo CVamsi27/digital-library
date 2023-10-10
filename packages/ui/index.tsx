@@ -4,5 +4,7 @@ export {
   HomePage,
   ThemeSwitcher,
   CardAddModal,
-  CartTable
+  CartTable,
+  CategoryCard,
+  LoginView,
 } from "./components";

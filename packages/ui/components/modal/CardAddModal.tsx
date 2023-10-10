@@ -1,14 +1,22 @@
 "use client";
 
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Checkbox, Input, useDisclosure } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Checkbox,
+  Input,
+  useDisclosure,
+} from "@nextui-org/react";
 
 export function CardAddModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      <Button onPress={onOpen}>
-        Add Item
-      </Button>
+      <Button color="primary" onPress={onOpen}>Add Item</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -18,7 +26,9 @@ export function CardAddModal() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Add Details</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                Add Details
+              </ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -31,26 +41,14 @@ export function CardAddModal() {
                   label="Author"
                   placeholder="Enter Author name"
                 />
-                <Input
-                  endContent
-                  label="Image"
-                  placeholder="Enter Image URL"
-                />
+                <Input endContent label="Image" placeholder="Enter Image URL" />
                 <Input
                   endContent
                   label="Published Date"
                   placeholder="Enter Published Date"
                 />
-                <Input
-                  endContent
-                  label="Rating"
-                  placeholder="Enter rating"
-                />
-                <Input
-                  endContent
-                  label="Price"
-                  placeholder="Enter price"
-                />
+                <Input endContent label="Rating" placeholder="Enter rating" />
+                <Input endContent label="Price" placeholder="Enter price" />
                 <div className="flex py-2 px-1 justify-between">
                   <Checkbox
                     classNames={{
@@ -76,4 +74,3 @@ export function CardAddModal() {
     </>
   );
 }
-

@@ -1,10 +1,8 @@
 "use client";
 
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
-import { CartIcon } from "./icons/CartIcon";
-import { CardEditModal } from "./modal/CardEditModal";
-import { AvailableIcon } from "./icons/AvailableIcon";
-import { NotAvailableIcon } from "./icons/NotAvailableIcon";
+import { CardEditModal } from "../modal/CardEditModal";
+import {StarIcon} from "../icons/StarIcon";
 
 export function CardCustom() {
   const list = [
@@ -53,12 +51,8 @@ export function CardCustom() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
       {list.map((item, index) => (
-        <Card
-          shadow="sm"
-          key={index}
-          className="m-10 p-2"
-        >
-          <CardBody className="overflow-visible p-0">
+        <Card shadow="sm" key={index} className="m-10 p-2">
+          <CardBody className="overflow-visible p-0 flex items-center justify-center">
             <Image
               shadow="sm"
               radius="lg"
@@ -67,27 +61,22 @@ export function CardCustom() {
               className="object-cover h-[240px] w-[140px]"
               src={item.img}
             />
+            <div className="w-full mt-4 ml-4 text-left">
+              <div className="flex mr-4 justify-end">
+                <p className="mr-1">{item.rating}</p>
+                <StarIcon/>
+              </div>
+              <p className="p-1 font-extrabold text-lg">{item.title}</p>
+              <p className="p-1 text-xs">by {item.author} | {item.publishedDate} | {item.category}</p>
+              <p className="p-1 text-xl">{item.price}</p>
+            </div>
           </CardBody>
-          <CardFooter className="text-small justify-between">
-            <div className="w-full mt-2 text-center">
-              <p>Title: {item.title}</p>
-              <p>Author: {item.author}</p>
-              <p>Publisehed Date: {item.publishedDate}</p>
-              <p>Category: {item.category}</p>
-              <p>Rating: {item.rating}</p>
-              <div className="flex justify-center">
-                <p>Availibility: </p>
-                <div className="ml-1 mt-0.5">
-                  {item.available ? <AvailableIcon /> : <NotAvailableIcon />}
-                </div>
-              </div>
-              <p>Price: {item.price}</p>
-              <div className="flex mt-2 justify-end">
-                <CardEditModal />
-                <Button isIconOnly className="ml-2">
-                  <CartIcon />
-                </Button>
-              </div>
+          <CardFooter className="justify-end">
+            <div className="flex">
+              <CardEditModal />
+              <Button isDisabled={!item.available} color="primary" className="ml-2">
+                Add to Cart
+              </Button>
             </div>
           </CardFooter>
         </Card>
