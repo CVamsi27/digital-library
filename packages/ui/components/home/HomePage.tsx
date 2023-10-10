@@ -38,7 +38,10 @@ export function HomePage() {
               </Button>
             </div>
             <div className="mt-8 items-center justify-center">
-              <Button color="primary" onPress={() => router.push("/categories")}>
+              <Button
+                color="primary"
+                onPress={() => router.push("/categories")}
+              >
                 Get Started
               </Button>
             </div>

@@ -2,7 +2,7 @@
 
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
 import { CardEditModal } from "../modal/CardEditModal";
-import {StarIcon} from "../icons/StarIcon";
+import { StarIcon } from "../icons/StarIcon";
 
 export function CardCustom() {
   const list = [
@@ -64,17 +64,23 @@ export function CardCustom() {
             <div className="w-full mt-4 ml-4 text-left">
               <div className="flex mr-4 justify-end">
                 <p className="mr-1">{item.rating}</p>
-                <StarIcon/>
+                <StarIcon />
               </div>
               <p className="p-1 font-extrabold text-lg">{item.title}</p>
-              <p className="p-1 text-xs">by {item.author} | {item.publishedDate} | {item.category}</p>
+              <p className="p-1 text-xs">
+                by {item.author} | {item.publishedDate} | {item.category}
+              </p>
               <p className="p-1 text-xl">{item.price}</p>
             </div>
           </CardBody>
           <CardFooter className="justify-end">
             <div className="flex">
               <CardEditModal />
-              <Button isDisabled={!item.available} color="primary" className="ml-2">
+              <Button
+                isDisabled={!item.available}
+                color="primary"
+                className="ml-2"
+              >
                 Add to Cart
               </Button>
             </div>

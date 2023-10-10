@@ -15,7 +15,7 @@ import { CartIcon } from "../icons/CartIcon";
 import { ThemeSwitcher } from "../theme/ThemeSwitcher";
 import { GitHubIcon } from "../icons/GitHubIcon";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 export function NavbarCustom() {
   const router = useRouter();
@@ -35,22 +35,33 @@ export function NavbarCustom() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem isActive={params === "/"}>
-          <Link className={params === "/" ? "text-primary-500": ""} href="/">
+          <Link className={params === "/" ? "text-primary-500" : ""} href="/">
             Home
           </Link>
         </NavbarItem>
         <NavbarItem isActive={params === "/categories"}>
-          <Link className={params === "/categories" ? "text-primary-500": ""} href="/categories">
+          <Link
+            className={params === "/categories" ? "text-primary-500" : ""}
+            href="/categories"
+          >
             Category
           </Link>
         </NavbarItem>
         <NavbarItem isActive={params.includes("/collection/")}>
-          <Link className={params.includes("/collection/") ? "text-primary-500": ""} href="/collection/all">
+          <Link
+            className={
+              params.includes("/collection/") ? "text-primary-500" : ""
+            }
+            href="/collection/all"
+          >
             Collection
           </Link>
         </NavbarItem>
         <NavbarItem isActive={params === "/cart"}>
-          <Link className={params === "/cart" ? "text-primary-500": ""} href="/cart">
+          <Link
+            className={params === "/cart" ? "text-primary-500" : ""}
+            href="/cart"
+          >
             Cart
           </Link>
         </NavbarItem>
@@ -89,7 +100,11 @@ export function NavbarCustom() {
         <Button isIconOnly onPress={() => router.push("/cart")}>
           <CartIcon />
         </Button>
-        <Button key="logout" color="danger" onPress={() => router.push("/login")}>
+        <Button
+          key="logout"
+          color="danger"
+          onPress={() => router.push("/login")}
+        >
           Log Out
         </Button>
       </NavbarContent>

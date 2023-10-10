@@ -16,12 +16,10 @@ export function OrderPlacedModal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">Place Order</Button>
-      <Modal 
-        isOpen={isOpen} 
-        onOpenChange={onOpenChange} 
-        backdrop="blur"
-      >
+      <Button onPress={onOpen} color="primary">
+        Place Order
+      </Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
             <>
@@ -35,7 +33,10 @@ export function OrderPlacedModal() {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={() => router.push("/categories")}>
+                <Button
+                  color="primary"
+                  onPress={() => router.push("/categories")}
+                >
                   Continue Shopping
                 </Button>
               </ModalFooter>

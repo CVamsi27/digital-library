@@ -47,7 +47,7 @@ const columns = [
   },
   {
     key: "author",
-    label: "Author"
+    label: "Author",
   },
   {
     key: "quantity",
@@ -103,13 +103,17 @@ export function CartTable() {
               <TableCell className="text-right">$0.5</TableCell>
             </TableRow>
             <TableRow key="5">
-              <TableCell className="text-primary-500 font-bold">Total Price</TableCell>
-              <TableCell className="text-primary-500 text-right font-bold">$12.5</TableCell>
+              <TableCell className="text-primary-500 font-bold">
+                Total Price
+              </TableCell>
+              <TableCell className="text-primary-500 text-right font-bold">
+                $12.5
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </div>
-      
+
       <div className="flex justify-end mr-6">
         <OrderPlacedModal />
       </div>

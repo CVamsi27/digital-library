@@ -18,4 +18,3 @@ export const MailIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-

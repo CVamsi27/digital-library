@@ -10,13 +10,29 @@ import {
   Checkbox,
   Input,
   useDisclosure,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
 
 export function CardAddModal() {
+  const categoryList = [
+    "Mystery",
+    "Poetry",
+    "Fiction",
+    "Biography",
+    "Romance",
+    "Adventure",
+    "Historical",
+    "Thriller ",
+    "Horror",
+    "All",
+  ];
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      <Button color="primary" onPress={onOpen}>Add Item</Button>
+      <Button color="primary" onPress={onOpen}>
+        Add Item
+      </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -47,6 +63,17 @@ export function CardAddModal() {
                   label="Published Date"
                   placeholder="Enter Published Date"
                 />
+                <Select
+                  label="Category"
+                  placeholder="Select Category"
+                  // defaultSelectedKeys={["Fiction"]}
+                >
+                  {categoryList.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </Select>
                 <Input endContent label="Rating" placeholder="Enter rating" />
                 <Input endContent label="Price" placeholder="Enter price" />
                 <div className="flex py-2 px-1 justify-between">

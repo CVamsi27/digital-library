@@ -1,7 +1,15 @@
-
-import { Card, CardHeader, CardBody, CardFooter, Button, Checkbox, Input, Link } from "@nextui-org/react";
-import { MailIcon } from '../icons/MailIcon';
-import { LockIcon } from '../icons/LockIcon';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Button,
+  Checkbox,
+  Input,
+  Link,
+} from "@nextui-org/react";
+import { MailIcon } from "../icons/MailIcon";
+import { LockIcon } from "../icons/LockIcon";
 import { useRouter } from "next/navigation";
 
 export function LoginView() {
@@ -48,7 +56,7 @@ export function LoginView() {
             Sign in
           </Button>
         </CardFooter>
-      </Card >
+      </Card>
     </div>
   );
 }

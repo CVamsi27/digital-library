@@ -13,7 +13,7 @@ export function CategoryCard() {
     "Historical",
     "Thriller ",
     "Horror",
-    "All"
+    "All",
   ];
   let navigation = "/collection/";
 
@@ -22,7 +22,9 @@ export function CategoryCard() {
       {categoryList.map((item) => (
         <Link href={navigation + item.toLowerCase()} key="{item}">
           <Card className="my-4 mx-10" key="{item}">
-            <CardBody className="text-center" key="{item}">{item}</CardBody>
+            <CardBody className="text-center" key="{item}">
+              {item}
+            </CardBody>
           </Card>
         </Link>
       ))}

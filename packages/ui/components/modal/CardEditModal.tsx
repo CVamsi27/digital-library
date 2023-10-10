@@ -10,16 +10,27 @@ import {
   Checkbox,
   Input,
   useDisclosure,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
-import { EditIcon } from "../icons/EditIcon";
 
 export function CardEditModal() {
+  const categoryList = [
+    "Mystery",
+    "Poetry",
+    "Fiction",
+    "Biography",
+    "Romance",
+    "Adventure",
+    "Historical",
+    "Thriller ",
+    "Horror",
+    "All",
+  ];
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
-      <Button onPress={onOpen} >
-        Edit
-      </Button>
+      <Button onPress={onOpen}>Edit</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -50,6 +61,17 @@ export function CardEditModal() {
                   label="Published Date"
                   placeholder="Enter Published Date"
                 />
+                <Select
+                  label="Category"
+                  placeholder="Select Category"
+                  // defaultSelectedKeys={["Fiction"]}
+                >
+                  {categoryList.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </Select>
                 <Input endContent label="Rating" placeholder="Enter rating" />
                 <Input endContent label="Price" placeholder="Enter price" />
                 <div className="flex py-2 px-1 justify-between">
