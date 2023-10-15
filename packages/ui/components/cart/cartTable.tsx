@@ -5,7 +5,11 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Card, CardBody, CardFooter, Image, Button
+  Card,
+  CardBody,
+  CardFooter,
+  Image,
+  Button,
 } from "@nextui-org/react";
 import { OrderPlacedModal } from "../modal/orderPlacedModal";
 import { Star } from "../../icons/star";
@@ -62,7 +66,6 @@ const columns = [
 ];
 
 export function CartTable() {
-
   const list = [
     {
       title: "The Psychology of Money",
@@ -135,11 +138,8 @@ export function CartTable() {
                   </div>
                 </CardBody>
                 <CardFooter className="justify-between">
-                  <QuantityCounter/>
-                  <Button
-                    color="danger"
-                    className="ml-2"
-                  >
+                  <QuantityCounter />
+                  <Button color="danger" className="ml-2">
                     Remove
                   </Button>
                 </CardFooter>
@@ -172,9 +172,7 @@ export function CartTable() {
                 <TableCell className="text-right">$0.5</TableCell>
               </TableRow>
               <TableRow key="5">
-                <TableCell className="text-lg font-bold">
-                  Total Price
-                </TableCell>
+                <TableCell className="text-lg font-bold">Total Price</TableCell>
                 <TableCell className="text-lg text-right font-bold">
                   $12.5
                 </TableCell>
@@ -186,7 +184,6 @@ export function CartTable() {
             <OrderPlacedModal />
           </div>
         </div>
-
       </div>
     </>
   );

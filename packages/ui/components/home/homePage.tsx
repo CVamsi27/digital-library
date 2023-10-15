@@ -17,10 +17,7 @@ export function HomePage() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button
                 onPress={() =>
-                  window.open(
-                    "https://github.com/CVamsi27",
-                    "_blank",
-                  )
+                  window.open("https://github.com/CVamsi27", "_blank")
                 }
               >
                 My Github Profile

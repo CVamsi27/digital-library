@@ -6,44 +6,44 @@ export function CategoryCard() {
   const categoryList = [
     {
       name: "Mystery",
-      color: "bg-blue-500/40"
+      color: "bg-blue-500/40",
     },
     {
       name: "Poetry",
-      color: "bg-lime-500/40"
+      color: "bg-lime-500/40",
     },
     {
       name: "Fiction",
-      color: "bg-sky-500/40"
+      color: "bg-sky-500/40",
     },
     {
       name: "Biography",
-      color: "bg-teal-500/40"
+      color: "bg-teal-500/40",
     },
     {
       name: "Romance",
-      color: "bg-yellow-500/40"
+      color: "bg-yellow-500/40",
     },
     {
       name: "Adventure",
-      color: "bg-rose-500/40"
+      color: "bg-rose-500/40",
     },
     {
       name: "Historical",
-      color: "bg-indigo-500/40"
+      color: "bg-indigo-500/40",
     },
     {
       name: "Thriller",
-      color: "bg-fuchsia-500/40"
+      color: "bg-fuchsia-500/40",
     },
     {
       name: "Horror",
-      color: "bg-green-500/40"
+      color: "bg-green-500/40",
     },
     {
       name: "All",
-      color: "bg-orange-500/40"
-    }
+      color: "bg-orange-500/40",
+    },
   ];
   let navigation = "/collection/";
 
@@ -52,7 +52,10 @@ export function CategoryCard() {
       {categoryList.map((item) => (
         <Link href={navigation + item.name.toLowerCase()} key="{item}">
           <Card className="my-4 mx-10" key="{item}">
-            <CardBody className={"text-center p-20 text-3xl "+item.color} key="{item}">
+            <CardBody
+              className={"text-center p-20 text-3xl " + item.color}
+              key="{item}"
+            >
               {item.name}
             </CardBody>
           </Card>
