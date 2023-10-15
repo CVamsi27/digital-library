@@ -1,10 +1,10 @@
 "use client";
 
-export { CardAddModal } from "./modal/CardAddModal";
-export { CardCustom } from "./card/Card";
-export { NavbarCustom } from "./navbar/Navbar";
-export { HomePage } from "./home/HomePage";
-export { ThemeSwitcher } from "./theme/ThemeSwitcher";
-export { CartTable } from "./cart/CartTable";
-export { CategoryCard } from "./card/CategoryCard";
-export { LoginView } from "./login/LoginView";
+export { CardAddModal } from "./modal/cardAddModal";
+export { CollectionCard } from "./card/collectionCard";
+export { NavbarCustom } from "./navbar/navbar";
+export { HomePage } from "./home/homePage";
+export { ThemeSwitcher } from "./theme/themeSwitcher";
+export { CartTable } from "./cart/cartTable";
+export { CategoryCard } from "./card/categoryCard";
+export { LoginView } from "./login/loginView";

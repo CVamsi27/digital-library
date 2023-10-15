@@ -1,7 +1,7 @@
 "use client";
 
 import { SVGProps } from "react";
-export const LockIcon = (props: SVGProps<SVGSVGElement>) => (
+export const Lock = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-hidden="true"
     fill="none"

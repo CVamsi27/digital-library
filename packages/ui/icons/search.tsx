@@ -2,7 +2,7 @@
 
 import { SVGProps } from "react";
 
-export const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
+export const Search = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-hidden="true"
     fill="none"

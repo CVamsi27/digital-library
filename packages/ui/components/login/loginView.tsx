@@ -8,8 +8,8 @@ import {
   Input,
   Link,
 } from "@nextui-org/react";
-import { MailIcon } from "../icons/MailIcon";
-import { LockIcon } from "../icons/LockIcon";
+import { Mail } from "../../icons/mail";
+import { Lock } from "../../icons/lock";
 import { useRouter } from "next/navigation";
 
 export function LoginView() {
@@ -23,7 +23,7 @@ export function LoginView() {
           <Input
             autoFocus
             endContent={
-              <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+              <Mail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
             }
             label="Email"
             placeholder="Enter your email"
@@ -31,7 +31,7 @@ export function LoginView() {
           />
           <Input
             endContent={
-              <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+              <Lock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
             }
             label="Password"
             placeholder="Enter your password"

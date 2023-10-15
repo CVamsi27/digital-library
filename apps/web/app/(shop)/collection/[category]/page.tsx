@@ -1,4 +1,4 @@
-import { CardAddModal, CardCustom } from "ui";
+import { CardAddModal, CollectionCard } from "ui";
 
 export default function Page({
   params,
@@ -10,7 +10,7 @@ export default function Page({
       <div className="flex justify-end mt-4 mr-4">
         <CardAddModal />
       </div>
-      <CardCustom />
+      <CollectionCard />
     </>
   );
 }

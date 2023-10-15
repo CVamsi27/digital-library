@@ -2,7 +2,7 @@
 
 import { SVGProps } from "react";
 
-export const SunIcon = (props: SVGProps<SVGSVGElement>) => (
+export const Sun = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-hidden="true"
     focusable="false"

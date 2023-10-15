@@ -1,6 +1,4 @@
 import { Button } from "@nextui-org/react";
-import { GitHubIcon } from "../icons/GitHubIcon";
-import { GmailIcon } from "../icons/GmailIcon";
 import { useRouter } from "next/navigation";
 
 export function HomePage() {
@@ -8,33 +6,31 @@ export function HomePage() {
   return (
     <div className="no-scrollbar">
       <div className="relative isolate px-0 pt-0 lg:px-8">
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+        <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-wide sm:text-8xl font-sans">
               Digital Library
             </h1>
-            <p className="mt-6 text-lg leading-8">
+            <p className="mt-6 text-lg tracking-wide leading-8">
               - Made by Chandaluri Vamsi Krishna
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button
-                isIconOnly
                 onPress={() =>
                   window.open(
-                    "https://github.com/CVamsi27/digital-library",
+                    "https://github.com/CVamsi27",
                     "_blank",
                   )
                 }
               >
-                <GitHubIcon />
+                My Github Profile
               </Button>
               <Button
-                isIconOnly
                 onPress={() =>
                   window.open("mailto:cvamsik99@gmail.com", "_blank")
                 }
               >
-                <GmailIcon />
+                Contact Me
               </Button>
             </div>
             <div className="mt-8 items-center justify-center">
@@ -42,7 +38,7 @@ export function HomePage() {
                 color="primary"
                 onPress={() => router.push("/categories")}
               >
-                Get Started
+                View Project
               </Button>
             </div>
           </div>

@@ -1,10 +1,10 @@
 "use client";
 
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
-import { CardEditModal } from "../modal/CardEditModal";
-import { StarIcon } from "../icons/StarIcon";
+import { CardEditModal } from "../modal/cardEditModal";
+import { Star } from "../../icons/star";
 
-export function CardCustom() {
+export function CollectionCard() {
   const list = [
     {
       title: "The Psychology of Money",
@@ -51,7 +51,7 @@ export function CardCustom() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
       {list.map((item, index) => (
-        <Card shadow="sm" key={index} className="m-10 p-2">
+        <Card shadow="sm" key={index} className="m-6 p-2">
           <CardBody className="overflow-visible p-0 flex items-center justify-center">
             <Image
               shadow="sm"
@@ -64,7 +64,7 @@ export function CardCustom() {
             <div className="w-full mt-4 ml-4 text-left">
               <div className="flex mr-4 justify-end">
                 <p className="mr-1">{item.rating}</p>
-                <StarIcon />
+                <Star />
               </div>
               <p className="p-1 font-extrabold text-lg">{item.title}</p>
               <p className="p-1 text-xs">

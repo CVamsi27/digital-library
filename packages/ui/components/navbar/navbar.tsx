@@ -9,11 +9,11 @@ import {
   Input,
   Button,
 } from "@nextui-org/react";
-import { AcmeLogo } from "../icons/Logo";
-import { SearchIcon } from "../icons/SearchIcon";
-import { CartIcon } from "../icons/CartIcon";
-import { ThemeSwitcher } from "../theme/ThemeSwitcher";
-import { GitHubIcon } from "../icons/GitHubIcon";
+import { Logo } from "../../icons/logo";
+import { Search } from "../../icons/search";
+import { Cart } from "../../icons/cart";
+import { ThemeSwitcher } from "../theme/themeSwitcher";
+import { Github } from "../../icons/github";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -25,9 +25,9 @@ export function NavbarCustom() {
       <Link href="/">
         <NavbarContent justify="start">
           <NavbarBrand className="mr-4">
-            <AcmeLogo />
+            <Logo />
             <p className="sm:block font-bold text-inherit ml-2">
-              Digital-Library
+              Digital Library
             </p>
           </NavbarBrand>
         </NavbarContent>
@@ -75,7 +75,7 @@ export function NavbarCustom() {
             window.open("https://github.com/CVamsi27/digital-library", "_blank")
           }
         >
-          <GitHubIcon />
+          <Github />
         </Button>
         <Input
           className="max-w-xs"
@@ -94,11 +94,11 @@ export function NavbarCustom() {
           }}
           placeholder="Type to search..."
           startContent={
-            <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+            <Search className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
         <Button isIconOnly onPress={() => router.push("/cart")}>
-          <CartIcon />
+          <Cart />
         </Button>
         <Button
           key="logout"

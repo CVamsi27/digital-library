@@ -16,7 +16,7 @@ export function OrderPlacedModal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">
+      <Button onPress={onOpen} color="primary" className=" text-lg">
         Place Order
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">

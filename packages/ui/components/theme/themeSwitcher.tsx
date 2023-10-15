@@ -5,8 +5,8 @@ import { useTheme } from "next-themes";
 
 import { Switch } from "@nextui-org/react";
 
-import { MoonIcon } from "../icons/MoonIcon";
-import { SunIcon } from "../icons/SunIcon";
+import { Moon } from "../../icons/moon";
+import { Sun } from "../../icons/sun";
 
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
@@ -23,8 +23,8 @@ export function ThemeSwitcher() {
       defaultSelected={defaultSelected}
       size="lg"
       color="default"
-      startContent={<SunIcon />}
-      endContent={<MoonIcon />}
+      startContent={<Sun />}
+      endContent={<Moon />}
       onValueChange={(isSelected: boolean) => {
         if (isSelected) {
           setTheme("light");

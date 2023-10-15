@@ -1,6 +1,6 @@
 "use client";
 
-export const AcmeLogo = () => (
+export const Logo = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="24"

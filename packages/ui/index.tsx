@@ -1,5 +1,5 @@
 export {
-  CardCustom,
+  CollectionCard,
   NavbarCustom,
   HomePage,
   ThemeSwitcher,

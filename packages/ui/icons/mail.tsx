@@ -1,7 +1,7 @@
 "use client";
 
 import { SVGProps } from "react";
-export const MailIcon = (props: SVGProps<SVGSVGElement>) => (
+export const Mail = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-hidden="true"
     fill="none"
