@@ -2,7 +2,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "../providers";
-import { NavbarCustom } from "ui";
+import Navbar from "../(lib)/components/navbar";
 import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,7 +28,7 @@ export default async function RootLayout({
         <Providers session={session}>
           <header>
             <nav>
-              <NavbarCustom />
+              <Navbar />
             </nav>
           </header>
           <main>{children}</main>

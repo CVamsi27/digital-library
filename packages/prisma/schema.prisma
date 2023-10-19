@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  cartItems Cart[]
+}
+
+model Collection {
+  id            Int      @id @default(autoincrement())
+  title         String   @unique
+  author        String
+  publishedDate DateTime @default(now()) @db.Date
+  rating        Float    @default(0)
+  available     Boolean  @default(true)
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    Int
+  img           String?
+  price         Float    @default(1)
+  Cart          Cart[]
+}
+
+model Cart {
+  id           Int        @id @default(autoincrement())
+  published    Boolean    @default(false)
+  title        String     @db.VarChar(255)
+  user         User       @relation(fields: [userID], references: [id])
+  userID       Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
+}
+
+model Category {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  color      String
+  Collection Collection[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}

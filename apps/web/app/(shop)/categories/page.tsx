@@ -1,8 +1,14 @@
 import { CategoryCard } from "ui";
-export default function Page(): JSX.Element {
+import axios from "axios";
+import { CategoryProps } from "types";
+
+export default async function Categories() {
+  const categories: CategoryProps = (
+    await axios.get((process.env.API_URL ?? "") + "/api/category")
+  ).data;
   return (
     <>
-      <CategoryCard />
+      <CategoryCard {...categories} />
     </>
   );
 }

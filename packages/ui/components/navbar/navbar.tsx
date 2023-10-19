@@ -16,8 +16,10 @@ import { ThemeSwitcher } from "../theme/themeSwitcher";
 import { Github } from "../../icons/github";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export function NavbarCustom() {
+  const { data: session } = useSession();
   const router = useRouter();
   const params = usePathname();
   return (
@@ -100,13 +102,30 @@ export function NavbarCustom() {
         <Button isIconOnly onPress={() => router.push("/cart")}>
           <Cart />
         </Button>
-        <Button
-          key="logout"
-          color="danger"
-          onPress={() => router.push("/login")}
-        >
-          Log Out
-        </Button>
+
+        {session ? (
+          <Button
+            key="logout"
+            color="danger"
+            onPress={() => {
+              signOut();
+              router.push("/api/auth/signin");
+            }}
+          >
+            Log Out
+          </Button>
+        ) : (
+          <Button
+            key="logout"
+            color="primary"
+            onPress={() => {
+              signIn();
+              router.push("/api/auth/signin");
+            }}
+          >
+            Log In
+          </Button>
+        )}
       </NavbarContent>
     </Navbar>
   );
