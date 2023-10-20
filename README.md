@@ -1,19 +1,10 @@
 ## Tech Stack
 
-- `Next.js`
-- `Reach.js`
-- `TurboRepo`
-- `Prisma`
-- `Postgres SQL`
-- `NextAuth`
-- `Next UI`
-
-## Tech Stack
-
 - [Next.js](https://nextjs.org/) – Framework
 - [React.js](https://react.dev/) - FrontEnd Framework
 - [Next UI](https://nextui.org/) - UI Framework
 - [Tailwind](https://tailwindcss.com/) – CSS
+- [tRPC](https://trpc.io/) - Backend Routes
 - [Prisma](https://www.prisma.io/) - Database Framework
 - [Postgres SQL](https://www.postgresql.org/) - Database
 - [Neon](https://neon.tech/) - Database Cloud
