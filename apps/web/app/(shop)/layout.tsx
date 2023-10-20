@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Providers from "../providers";
 import Navbar from "../(lib)/components/navbar";
 import { getServerSession } from "next-auth";
+import Provider from "@/app/_trpc/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,11 @@ export default async function RootLayout({
               <Navbar />
             </nav>
           </header>
-          <main>{children}</main>
+          <main>
+            <Provider>
+              {children}
+            </Provider>
+          </main>
           <footer></footer>
         </Providers>
       </body>

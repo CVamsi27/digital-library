@@ -3,9 +3,8 @@ import Link from "next/link";
 import { Card, CardBody } from "@nextui-org/react";
 import { CategoryProps } from "../../../types";
 
-export function CategoryCard(categories: CategoryProps) {
+export function CategoryCard(categories) {
   const navigation = "/collection/";
-  console.log(categories[0].name);
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 m-10">
       {categories.map((item) => (

@@ -1,14 +1,16 @@
+"use client";
 import { CategoryCard } from "ui";
-import axios from "axios";
+import { trpc } from "@/app/_trpc/client";
 import { CategoryProps } from "types";
+import { serverClient } from "@/app/_trpc/serverClient";
 
-export default async function Categories() {
-  const categories: CategoryProps = (
-    await axios.get((process.env.API_URL ?? "") + "/api/category")
-  ).data;
+export default function Categories() {
+  const { data: categories, isLoading } = trpc.getCategories.useQuery();
   return (
     <>
-      <CategoryCard {...categories} />
+      {isLoading ? <div>Loading</div>
+        : <CategoryCard categories={categories} />
+      }
     </>
   );
 }
