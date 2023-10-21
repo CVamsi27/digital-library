@@ -1,12 +1,20 @@
 import prisma from "prisma";
-import { categorySchema } from "zod-schemas";
+import { z } from "zod";
 import { publicProcedure, router } from "./trpc";
 
 export const appRouter = router({
-    getCategories: publicProcedure.query(async () => {
-        const category = await prisma.category.findMany();
-        return categorySchema.safeParse(category);
-    })
+  getCategories: publicProcedure.query(async () => {
+    return await prisma.category.findMany();
+  }),
+  getCollection: publicProcedure
+    .input(z.object({ categoryId: z.number() }))
+    .query(async ({ input }) => {
+      return await prisma.collection.findMany({
+        where: {
+          categoryId: input.categoryId,
+        },
+      });
+    }),
 });
 
 export type AppRouter = typeof appRouter;

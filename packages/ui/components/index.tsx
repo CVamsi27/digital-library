@@ -1,5 +1,6 @@
 "use client";
 
+export { Loading } from "./loading/loaging";
 export { CardAddModal } from "./modal/cardAddModal";
 export { CollectionCard } from "./card/collectionCard";
 export { NavbarCustom } from "./navbar/navbar";

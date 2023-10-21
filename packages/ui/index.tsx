@@ -7,4 +7,5 @@ export {
   CartTable,
   CategoryCard,
   LoginView,
+  Loading,
 } from "./components";

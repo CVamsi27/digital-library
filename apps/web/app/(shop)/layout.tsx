@@ -32,9 +32,7 @@ export default async function RootLayout({
             </nav>
           </header>
           <main>
-            <Provider>
-              {children}
-            </Provider>
+            <Provider>{children}</Provider>
           </main>
           <footer></footer>
         </Providers>
