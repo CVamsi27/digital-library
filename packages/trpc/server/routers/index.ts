@@ -15,31 +15,30 @@ export const appRouter = router({
         where: {
           categoryId: input.categoryId,
           category: {
-            id: input.categoryId
-          }
+            id: input.categoryId,
+          },
         },
         include: {
           category: {
             select: {
-              name: true
-            }
-          }
-        }
+              name: true,
+            },
+          },
+        },
       });
     }),
 
-    getCollection: publicProcedure
-      .query(async () => {
-        return await prisma.collection.findMany({
-          include: {
-            category: {
-              select: {
-                name: true
-              }
-            }
-          }
-        });
-      }),
+  getCollection: publicProcedure.query(async () => {
+    return await prisma.collection.findMany({
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+  }),
 
   postBookDetails: privateProcedure
     .input(collectionSchema)
@@ -53,10 +52,10 @@ export const appRouter = router({
           available: input.available,
           categoryId: input.categoryId,
           img: input.img,
-          price: input.price
-        }
+          price: input.price,
+        },
       });
-    })
+    }),
 });
 
 export type AppRouter = typeof appRouter;

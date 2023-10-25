@@ -75,8 +75,10 @@ export function CardAddModal(categoryList: CategoryProps) {
                   label="Published Date"
                   placeholder="Format - yyyy-mm-dd"
                   onChange={(e) => {
-                    const pd = new Date(e.target.value+"T00:00:00").toISOString();
-                    setPublishedDate(pd)
+                    const pd = new Date(
+                      e.target.value + "T00:00:00",
+                    ).toISOString();
+                    setPublishedDate(pd);
                   }}
                 />
                 <Select
