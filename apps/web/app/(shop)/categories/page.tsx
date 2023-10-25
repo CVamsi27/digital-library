@@ -1,9 +1,9 @@
 "use client";
 import { CategoryCard, Loading } from "ui";
-import { trpc } from "@/app/_trpc/client";
+import { t } from "trpc/client/client";
 
 export default function Categories() {
-  const { data: categories, isLoading } = trpc.getCategories.useQuery();
+  const { data: categories, isLoading } = t.getCategories.useQuery();
   return (
     <>
       {isLoading ? (

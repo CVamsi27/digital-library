@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Providers from "@/app/providers";
 import Navbar from "@/app/(lib)/components/navbar";
 import { getServerSession } from "next-auth";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +22,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
+  const [user, setUser] = useState(session);
+
+  useEffect(() => {
+    setUser(session);
+  }, [session]);
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers session={session}>
+        <Providers session={user}>
           <header>
             <nav>
               <Navbar />

@@ -5,6 +5,8 @@ const nextConfig = {
   transpilePackages: ["types"],
   transpilePackages: ["prisma"],
   transpilePackages: ["zod-schemas"],
+  transpilePackages: ["trpc"],
+  transpilePackages: ["lib"],
 };
 
 module.exports = nextConfig;

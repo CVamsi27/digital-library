@@ -1,11 +1,11 @@
 import { TRPCError, initTRPC } from "@trpc/server";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 
 const t = initTRPC.create();
 const middleware = t.middleware;
 
 const isAuth = middleware(async (opts) => {
-  const { data: session } = useSession();
+  const session = await getServerSession();
 
   if (!session) {
     throw new TRPCError({ code: "UNAUTHORIZED" });

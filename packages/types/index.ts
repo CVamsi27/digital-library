@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { categorySchema, collectionSchema } from "../zod-schemas";
+import { categorySchema, collectionArraySchema } from "../zod-schemas";
 
 export type CategoryProps = z.infer<typeof categorySchema>;
 
-export type collectionSchema = z.infer<typeof collectionSchema>;
+export type CollectionArrayProps = z.infer<typeof collectionArraySchema>;
