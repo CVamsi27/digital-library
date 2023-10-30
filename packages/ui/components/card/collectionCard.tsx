@@ -6,10 +6,12 @@ import { Star } from "../../icons/star";
 import { CollectionArrayProps } from "../../../types";
 
 export function CollectionCard(collections: CollectionArrayProps) {
+  const collectionsArray = Object.values(collections);
+  const options = { year: "numeric", month: "short", day: "2-digit" };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
-      {collections.map((item, index) => (
-        <Card shadow="sm" key={index} className="m-6 p-2">
+      {collectionsArray.map((item) => (
+        <Card shadow="sm" key={item.id} className="m-6 p-2">
           <CardBody className="overflow-visible p-0 flex items-center justify-center">
             <Image
               shadow="sm"
@@ -26,9 +28,14 @@ export function CollectionCard(collections: CollectionArrayProps) {
               </div>
               <p className="p-1 font-extrabold text-lg">{item.title}</p>
               <p className="p-1 text-xs">
-                by {item.author} | {item.publishedDate} | {item.category.name}
+                by {item.author} |{" "}
+                {new Date(item.publishedDate).toLocaleDateString(
+                  "en-US",
+                  options as Intl.DateTimeFormatOptions,
+                )}{" "}
+                | {item.category.name}
               </p>
-              <p className="p-1 text-xl">{item.price}</p>
+              <p className="p-1 text-xl">${item.price}</p>
             </div>
           </CardBody>
           <CardFooter className="justify-end">

@@ -36,6 +36,7 @@ export function CardEditModal() {
         onOpenChange={onOpenChange}
         placement="center"
         backdrop="blur"
+        isDismissable={false}
       >
         <ModalContent>
           {(onClose) => (

@@ -35,3 +35,10 @@ export const collectionSchema = z.object({
   img: z.string().nullable(),
   price: z.number(),
 });
+
+export const userDetailsSchema = z.object({
+  id: z.number(),
+  email: z.string().email(),
+  name: z.string(),
+  role: z.string(),
+});

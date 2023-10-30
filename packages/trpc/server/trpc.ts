@@ -2,9 +2,8 @@ import { TRPCError, initTRPC } from "@trpc/server";
 import { getServerSession } from "next-auth/next";
 
 const t = initTRPC.create();
-const middleware = t.middleware;
 
-const isAuth = middleware(async (opts) => {
+const isAuth = t.middleware(async (opts) => {
   const session = await getServerSession();
 
   if (!session) {
@@ -13,7 +12,7 @@ const isAuth = middleware(async (opts) => {
 
   return opts.next({
     ctx: {
-      userName: session?.user?.name,
+      name: session?.user?.name,
       email: session?.user?.email,
       expires: session.expires,
     },

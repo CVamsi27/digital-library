@@ -18,7 +18,7 @@ import { t } from "../../../trpc/client/client";
 import { useState } from "react";
 
 export function CardAddModal(categoryList: CategoryProps) {
-  const { mutate: postBookMutate } = t.postBookDetails.useMutation();
+  const { mutateAsync: postBookMutate } = t.postBookDetails.useMutation();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const categoriesArray = Object.values(categoryList);
 
@@ -130,9 +130,9 @@ export function CardAddModal(categoryList: CategoryProps) {
                 </Button>
                 <Button
                   color="primary"
-                  onPress={() => {
+                  onPress={async () => {
                     try {
-                      postBookMutate({
+                      await postBookMutate({
                         title,
                         author,
                         publishedDate,
@@ -142,9 +142,10 @@ export function CardAddModal(categoryList: CategoryProps) {
                         img,
                         price,
                       });
+                      alert("Item added Successfully!");
                       onClose();
-                    } catch (error) {
-                      console.log(error);
+                    } catch (e) {
+                      alert(`Something went wrong: ${e}`);
                     }
                   }}
                 >

@@ -2,6 +2,7 @@
 import { CardAddModal, CollectionCard, Loading } from "ui";
 import { t } from "trpc/client/client";
 import { defaultUseQueryParams } from "lib";
+import { useSession } from "next-auth/react";
 
 export default function Page({
   params,
@@ -9,7 +10,7 @@ export default function Page({
   params: { categoryId: string };
 }): JSX.Element {
   const { data: collections, isLoading: isLoadingCollection } =
-    params.categoryId == "10"
+    params.categoryId == "10" || params.categoryId == "all"
       ? t.getCollection.useQuery(undefined, defaultUseQueryParams)
       : t.getCollectionByCategory.useQuery(
           {
@@ -19,6 +20,7 @@ export default function Page({
         );
   const { data: categoryList, isLoading: isLoadingCategories } =
     t.getCategories.useQuery(undefined, defaultUseQueryParams);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -27,10 +29,10 @@ export default function Page({
       ) : (
         <>
           <div className="flex justify-end mt-4 mr-4">
-            {categoryList === undefined ? (
-              <></>
-            ) : (
+            {categoryList !== undefined && session ? (
               <CardAddModal {...categoryList} />
+            ) : (
+              <></>
             )}
           </div>
           {collections === undefined ? (

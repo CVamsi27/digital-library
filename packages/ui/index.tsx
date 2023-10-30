@@ -1,3 +1,5 @@
+"use client";
+
 export {
   CollectionCard,
   NavbarCustom,
@@ -9,3 +11,4 @@ export {
   LoginView,
   Loading,
 } from "./components";
+export * from "react-query";

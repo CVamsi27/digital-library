@@ -1,9 +1,36 @@
-import prisma from "../../../prisma";
+import prisma, { Role } from "../../../prisma";
 import { z } from "zod";
 import { privateProcedure, publicProcedure, router } from "../trpc";
 import { collectionSchema } from "../../../zod-schemas";
+import { getServerSession } from "next-auth/next";
+import { TRPCError } from "@trpc/server";
 
 export const appRouter = router({
+  authCallback: publicProcedure.query(async () => {
+    const session = await getServerSession();
+
+    if (!session?.user?.email) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const dbUser = await prisma.user.findFirst({
+      where: {
+        email: session?.user?.email,
+      },
+    });
+
+    if (!dbUser) {
+      await prisma.user.create({
+        data: {
+          email: session?.user?.email,
+          name: session?.user?.name,
+        },
+      });
+    }
+
+    return { success: true };
+  }),
+
   getCategories: publicProcedure.query(async () => {
     return await prisma.category.findMany();
   }),
@@ -56,6 +83,9 @@ export const appRouter = router({
         },
       });
     }),
+
+  // addToCart: privateProcedure
+  // .input(),
 });
 
 export type AppRouter = typeof appRouter;

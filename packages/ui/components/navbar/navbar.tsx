@@ -107,9 +107,10 @@ export function NavbarCustom() {
           <Button
             key="logout"
             color="danger"
-            onPress={() => {
-              signOut();
-              router.push("/api/auth/signin");
+            onPress={async () => {
+              const data = await signOut();
+              console.log(data);
+              router.push("/signin");
             }}
           >
             Log Out
@@ -120,7 +121,7 @@ export function NavbarCustom() {
             color="primary"
             onPress={() => {
               signIn();
-              router.push("/api/auth/signin");
+              router.push("/signin");
             }}
           >
             Log In
