@@ -8,33 +8,32 @@ export const categorySchema = z.array(
   }),
 );
 
-export const collectionArraySchema = z.array(
-  z.object({
-    id: z.number(),
-    title: z.string(),
-    author: z.string(),
-    publishedDate: z.string(),
-    rating: z.number().min(1).max(5),
-    available: z.boolean(),
-    categoryId: z.number(),
-    category: z.object({
-      name: z.string(),
-    }),
-    img: z.string().nullable(),
-    price: z.number(),
-  }),
-);
-
 export const collectionSchema = z.object({
+  id: z.number(),
   title: z.string(),
   author: z.string(),
   publishedDate: z.string(),
   rating: z.number().min(1).max(5),
   available: z.boolean(),
   categoryId: z.number(),
+  category: z.object({
+    name: z.string(),
+  }),
   img: z.string().nullable(),
   price: z.number(),
 });
+
+export const collectionArraySchema = z.array(collectionSchema);
+
+export const cartSchema = z.array(
+  z.object({
+    collectionId: z.number(),
+    id: z.number(),
+    collection: collectionSchema,
+    userID: z.number(),
+    quantity: z.number(),
+  }),
+);
 
 export const userDetailsSchema = z.object({
   id: z.number(),

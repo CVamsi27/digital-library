@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import {
   Navbar,
   NavbarBrand,
@@ -15,8 +14,8 @@ import { Cart } from "../../icons/cart";
 import { ThemeSwitcher } from "../theme/themeSwitcher";
 import { Github } from "../../icons/github";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 export function NavbarCustom() {
   const { data: session } = useSession();
@@ -107,10 +106,8 @@ export function NavbarCustom() {
           <Button
             key="logout"
             color="danger"
-            onPress={async () => {
-              const data = await signOut();
-              console.log(data);
-              router.push("/signin");
+            onPress={() => {
+              signOut();
             }}
           >
             Log Out
@@ -120,8 +117,7 @@ export function NavbarCustom() {
             key="logout"
             color="primary"
             onPress={() => {
-              signIn();
-              router.push("/signin");
+              router.push("/signin/" + params);
             }}
           >
             Log In

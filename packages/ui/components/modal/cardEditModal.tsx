@@ -62,11 +62,7 @@ export function CardEditModal() {
                   label="Published Date"
                   placeholder="Enter Published Date"
                 />
-                <Select
-                  label="Category"
-                  placeholder="Select Category"
-                  // defaultSelectedKeys={["Fiction"]}
-                >
+                <Select label="Category" placeholder="Select Category">
                   {categoryList.map((category) => (
                     <SelectItem key={category} value={category}>
                       {category}

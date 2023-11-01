@@ -33,12 +33,11 @@ model Collection {
 
 model Cart {
   id           Int        @id @default(autoincrement())
-  published    Boolean    @default(false)
-  title        String     @db.VarChar(255)
   user         User       @relation(fields: [userID], references: [id])
   userID       Int
   collection   Collection @relation(fields: [collectionId], references: [id])
   collectionId Int
+  quantity     Int        @default(1)
 }
 
 model Category {

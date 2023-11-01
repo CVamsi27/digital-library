@@ -9,16 +9,37 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { t } from "../../../trpc/client/client";
+import { useState } from "react";
+import { PlaceOrderProps } from "../../../types";
 
-export function OrderPlacedModal() {
+export function OrderPlacedModal(props: PlaceOrderProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
-
+  const { mutateAsync: placeOrder, isLoading: isLoadingDeleteCart } =
+    t.deleteUserCart.useMutation();
+  const [output, setOutput] = useState("");
   return (
     <>
-      <Button onPress={onOpen} color="primary" className=" text-lg">
-        Place Order
-      </Button>
+      {props.cartLength === 0 ? (
+        <Button color="primary" onPress={() => router.push("/categories")}>
+          Continue Shopping
+        </Button>
+      ) : (
+        <Button
+          isLoading={isLoadingDeleteCart}
+          onPress={async () => {
+            const message = await placeOrder();
+            setOutput(message);
+            onOpen();
+          }}
+          color="primary"
+          className=" text-lg"
+        >
+          Place Order
+        </Button>
+      )}
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -27,16 +48,20 @@ export function OrderPlacedModal() {
                 Order Status
               </ModalHeader>
               <ModalBody>
-                <p>Order places successfully</p>
+                <p>{output}</p>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={() => {
+                    router.refresh();
+                    onClose();
+                  }}
+                >
                   Close
                 </Button>
-                <Button
-                  color="primary"
-                  onPress={() => router.push("/categories")}
-                >
+                <Button color="primary" onPress={() => router.refresh()}>
                   Continue Shopping
                 </Button>
               </ModalFooter>

@@ -1,19 +1,15 @@
 import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { getProviders } from "next-auth/react";
-import { ProvidersProps } from "../../../types";
 import { useQuery } from "react-query";
 import { Loading } from "../loading/loaging";
 
 export function LoginView() {
-  // const [providers, setProviders] = useState<ProvidersProps['providers']>([]);
-
   const retrieveProviders = async () => await getProviders();
   const { data: providers, isLoading } = useQuery(
     "providersData",
     retrieveProviders,
   );
-
   return (
     <>
       {isLoading || !providers ? (

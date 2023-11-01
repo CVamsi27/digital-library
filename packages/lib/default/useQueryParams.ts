@@ -1,5 +1,5 @@
 export const defaultUseQueryParams = {
-  refetchOnMount: false,
-  refetchOnReconnect: false,
+  // refetchOnMount: false,
+  // refetchOnReconnect: false,
   refetchOnWindowFocus: false,
 };

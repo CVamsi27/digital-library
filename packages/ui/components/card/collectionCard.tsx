@@ -3,11 +3,18 @@
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
 import { CardEditModal } from "../modal/cardEditModal";
 import { Star } from "../../icons/star";
-import { CollectionArrayProps } from "../../../types";
+import { CollectionProps } from "../../../types";
+import { t } from "../../../trpc/client/client";
+import { TRPCError } from "../../../trpc";
+import { useRouter } from "next/navigation";
 
-export function CollectionCard(collections: CollectionArrayProps) {
+export function CollectionCard(props: CollectionProps) {
+  const router = useRouter();
+  const { collections, userId, isAdmin } = props;
   const collectionsArray = Object.values(collections);
   const options = { year: "numeric", month: "short", day: "2-digit" };
+  const { mutateAsync: postCartItemMutation, isLoading: isLoadingAddToCart } =
+    t.postToCart.useMutation();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
       {collectionsArray.map((item) => (
@@ -40,11 +47,23 @@ export function CollectionCard(collections: CollectionArrayProps) {
           </CardBody>
           <CardFooter className="justify-end">
             <div className="flex">
-              <CardEditModal />
+              {isAdmin ? <CardEditModal /> : <></>}
               <Button
-                isDisabled={!item.available}
+                isDisabled={!item.available || !userId}
                 color="primary"
                 className="ml-2"
+                isLoading={isLoadingAddToCart}
+                onPress={async () => {
+                  if (!userId) {
+                    throw new TRPCError({ code: "UNAUTHORIZED" });
+                  }
+                  const message = await postCartItemMutation({
+                    collectionId: item.id,
+                    userId: userId,
+                  });
+                  alert(message);
+                  router.push("/cart");
+                }}
               >
                 Add to Cart
               </Button>

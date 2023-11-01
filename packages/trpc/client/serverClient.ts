@@ -1,6 +1,6 @@
-import { httpBatchLink } from "trpc/client";
+import { httpBatchLink } from "@trpc/client";
 
-import { appRouter } from "trpc/server/routers";
+import { appRouter } from "../server/routers";
 
 const url = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}/api/trpc`
