@@ -18,7 +18,8 @@ import { t } from "../../../trpc/client/client";
 import { useState } from "react";
 
 export function CardAddModal(categoryList: CategoryProps) {
-  const { mutateAsync: postBookMutate } = t.postBookDetails.useMutation();
+  const { mutateAsync: postBookMutate, isLoading: isLoadingPostBook } =
+    t.postBookDetails.useMutation();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const categoriesArray = Object.values(categoryList);
 
@@ -130,6 +131,7 @@ export function CardAddModal(categoryList: CategoryProps) {
                 </Button>
                 <Button
                   color="primary"
+                  isLoading={isLoadingPostBook}
                   onPress={async () => {
                     try {
                       await postBookMutate({

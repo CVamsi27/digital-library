@@ -1,5 +1,10 @@
 {
   "extends": "tsconfig/react-library.json",
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "types": ["react", "react-dom"]
+  }
 }

@@ -4,12 +4,16 @@ import {
   collectionArraySchema,
   cartSchema,
 } from "../zod-schemas";
+import { t } from "../trpc/client/client";
 
 export type CategoryProps = z.infer<typeof categorySchema>;
 
 export type CollectionArrayProps = z.infer<typeof collectionArraySchema>;
 
-export type CartProps = z.infer<typeof cartSchema>;
+export interface CartProps {
+  cartDetails: z.infer<typeof cartSchema>;
+  refetchCartData: ReturnType<typeof t.getCartDetails.useQuery>["refetch"];
+}
 
 export interface ProvidersProps {
   providers: { id: string; name: string }[];

@@ -54,14 +54,15 @@ export function OrderPlacedModal(props: PlaceOrderProps) {
                 <Button
                   color="danger"
                   variant="light"
-                  onPress={() => {
-                    router.refresh();
-                    onClose();
-                  }}
+                  onPress={onClose}
+                  onPressChange={router.refresh}
                 >
                   Close
                 </Button>
-                <Button color="primary" onPress={() => router.refresh()}>
+                <Button
+                  color="primary"
+                  onPress={() => router.push("/categories")}
+                >
                   Continue Shopping
                 </Button>
               </ModalFooter>

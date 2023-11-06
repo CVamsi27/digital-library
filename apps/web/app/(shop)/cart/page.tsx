@@ -5,16 +5,23 @@ import { Loading } from "ui";
 import { defaultUseQueryParams } from "lib";
 
 export default function Page(): JSX.Element {
-  const { data: cartDetails, isLoading: isLoadingCartDetails } =
-    t.getCartDetails.useQuery(undefined, defaultUseQueryParams);
+  const {
+    data: cartDetails,
+    isLoading: isLoadingCartDetails,
+    refetch: refetchCartData,
+    isFetching: isFetchingCartDetails,
+  } = t.getCartDetails.useQuery(undefined, defaultUseQueryParams);
   return (
     <>
-      {isLoadingCartDetails ? (
+      {isLoadingCartDetails || isFetchingCartDetails ? (
         <Loading />
       ) : !cartDetails ? (
         <></>
       ) : (
-        <CartTable {...cartDetails} />
+        <CartTable
+          cartDetails={cartDetails}
+          refetchCartData={refetchCartData}
+        />
       )}
     </>
   );

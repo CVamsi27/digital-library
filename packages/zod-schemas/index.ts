@@ -9,6 +9,17 @@ export const categorySchema = z.array(
 );
 
 export const collectionSchema = z.object({
+  title: z.string(),
+  author: z.string(),
+  publishedDate: z.string(),
+  rating: z.number().min(1).max(5),
+  available: z.boolean(),
+  categoryId: z.number(),
+  img: z.string().nullable(),
+  price: z.number(),
+});
+
+export const cartCollectionSchema = z.object({
   id: z.number(),
   title: z.string(),
   author: z.string(),
@@ -23,13 +34,13 @@ export const collectionSchema = z.object({
   price: z.number(),
 });
 
-export const collectionArraySchema = z.array(collectionSchema);
+export const collectionArraySchema = z.array(cartCollectionSchema);
 
 export const cartSchema = z.array(
   z.object({
     collectionId: z.number(),
     id: z.number(),
-    collection: collectionSchema,
+    collection: cartCollectionSchema,
     userID: z.number(),
     quantity: z.number(),
   }),
