@@ -3,6 +3,7 @@ import {
   categorySchema,
   collectionArraySchema,
   cartSchema,
+  collectionGetSchema,
 } from "../zod-schemas";
 import { t } from "../trpc/client/client";
 
@@ -27,8 +28,16 @@ export interface CollectionProps {
   collections: CollectionArrayProps;
   userId?: number;
   isAdmin?: boolean;
+  categoryList: CategoryProps;
+  refetchCollection: ReturnType<typeof t.getCategories.useQuery>["refetch"];
 }
 
 export interface PlaceOrderProps {
   cartLength: number;
+}
+
+export interface CardEditProps {
+  categoryList: CategoryProps;
+  collectionData: z.infer<typeof collectionGetSchema>;
+  refetchCollection: ReturnType<typeof t.getCategories.useQuery>["refetch"];
 }

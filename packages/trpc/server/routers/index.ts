@@ -1,7 +1,7 @@
 import prisma from "../../../prisma";
 import { z } from "zod";
 import { privateProcedure, publicProcedure, router } from "../trpc";
-import { collectionSchema } from "../../../zod-schemas";
+import { collectionSchema, collectionEditSchema } from "../../../zod-schemas";
 import { getServerSession } from "next-auth/next";
 import { TRPCError } from "@trpc/server";
 
@@ -52,10 +52,55 @@ export const appRouter = router({
     return await prisma.category.findMany();
   }),
 
+  getCategoriesWithoutAll: publicProcedure.query(async () => {
+    return await prisma.category.findMany({
+      where: {
+        name: {
+          not: "All",
+        },
+      },
+    });
+  }),
+
+  getCollection: publicProcedure.query(async () => {
+    return await prisma.collection.findMany({
+      orderBy: {
+        id: "asc",
+      },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+  }),
+
+  getCollectionById: publicProcedure
+    .input(z.object({ collctionId: z.number() }))
+    .query(async ({ input }) => {
+      return await prisma.collection.findFirst({
+        where: {
+          id: input.collctionId,
+        },
+        include: {
+          category: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+    }),
+
   getCollectionByCategory: publicProcedure
     .input(z.object({ categoryId: z.number() }))
     .query(async ({ input }) => {
       return await prisma.collection.findMany({
+        orderBy: {
+          id: "asc",
+        },
         where: {
           categoryId: input.categoryId,
           category: {
@@ -71,18 +116,6 @@ export const appRouter = router({
         },
       });
     }),
-
-  getCollection: publicProcedure.query(async () => {
-    return await prisma.collection.findMany({
-      include: {
-        category: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    });
-  }),
 
   postBookDetails: privateProcedure
     .input(collectionSchema)
@@ -177,9 +210,54 @@ export const appRouter = router({
         },
       },
     });
-    if (result.count > 0) return "Order places successfully";
-    else return "Cart is empty";
+    if (result.count > 0) return "Order placed successfully";
+    return "Cart is empty";
   }),
+
+  editCollection: privateProcedure
+    .input(z.object({ itemId: z.number(), data: collectionEditSchema }))
+    .mutation(async ({ input }) => {
+      const result = await prisma.collection.update({
+        where: {
+          id: input.itemId,
+        },
+        data: {
+          title: input.data.title,
+          author: input.data.author,
+          publishedDate: input.data.publishedDate,
+          rating: input.data.rating,
+          available: input.data.available,
+          categoryId: input.data.categoryId,
+          img: input.data.img,
+          price: input.data.price,
+        },
+      });
+      if (result) return "Data updated successfully";
+      return "Error";
+    }),
+
+  editQuantity: privateProcedure
+    .input(
+      z.object({
+        cartId: z.number(),
+        collectionId: z.number(),
+        quantity: z.number().min(1).max(10),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const result = await prisma.cart.update({
+        where: {
+          id: input.cartId,
+        },
+        data: {
+          userID: ctx.userId,
+          collectionId: input.collectionId,
+          quantity: input.quantity,
+        },
+      });
+      if (result) return "Quantity updated successfully";
+      return "Error";
+    }),
 });
 
 export type AppRouter = typeof appRouter;

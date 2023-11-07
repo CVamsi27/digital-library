@@ -22,7 +22,12 @@ export function OrderPlacedModal(props: PlaceOrderProps) {
   return (
     <>
       {props.cartLength === 0 ? (
-        <Button color="primary" onPress={() => router.push("/categories")}>
+        <Button
+          color="primary"
+          onPress={() => {
+            router.push("/categories");
+          }}
+        >
           Continue Shopping
         </Button>
       ) : (

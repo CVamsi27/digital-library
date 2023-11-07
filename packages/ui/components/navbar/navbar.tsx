@@ -53,7 +53,7 @@ export function NavbarCustom() {
             className={
               params.includes("/collection/") ? "text-primary-500" : ""
             }
-            href="/collection/all"
+            href="/collection/10"
           >
             Collection
           </Link>

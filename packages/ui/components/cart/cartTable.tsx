@@ -17,28 +17,34 @@ import { Star } from "../../icons/star";
 import { QuantityCounter } from "../counter/quantityCounter";
 import { CartProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function CartTable({ cartDetails, refetchCartData }: CartProps) {
   const list = Object.values(cartDetails);
   const options = { year: "numeric", month: "short", day: "2-digit" };
 
-  const totalPrice = list.reduce((accumulator, val) => {
-    const itemPrice = val.quantity * val.collection.price;
-    return accumulator + itemPrice;
-  }, 0);
-  const router = useRouter();
-
   const { mutateAsync: deleteCartItem, isLoading: isLoadingDeleteItem } =
     t.deleteFromCart.useMutation();
   const [loadingState, setLoadingState] = useState<{
-    [itemId: string]: boolean;
+    [itemId: number]: boolean;
   }>({});
+
+  const [quantity, setQuantity] = useState<{
+    [itemId: number]: number;
+  }>(
+    cartDetails.reduce((result: { [key: number]: number }, item) => {
+      result[item.id] = item.quantity;
+      return result;
+    }, {}),
+  );
+
+  const totalPrice = list.reduce((accumulator, val) => {
+    const itemPrice = quantity[val.id] * val.collection.price;
+    return accumulator + itemPrice;
+  }, 0);
 
   return (
     <>
-      (
       <div className="no-scrollbar m-6 grid grid-cols-4 gap-4">
         <div className="col-span-3">
           <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
@@ -77,7 +83,12 @@ export function CartTable({ cartDetails, refetchCartData }: CartProps) {
                     </div>
                   </CardBody>
                   <CardFooter className="justify-between">
-                    <QuantityCounter />
+                    <QuantityCounter
+                      itemId={item.id}
+                      collectionId={item.collectionId}
+                      quantity={quantity[item.id]}
+                      setQuantity={setQuantity}
+                    />
                     <Button
                       isDisabled={isItemLoading}
                       color="danger"
@@ -99,9 +110,7 @@ export function CartTable({ cartDetails, refetchCartData }: CartProps) {
                             [item.id]: false,
                           }));
                         }
-
                         alert(result);
-
                         await refetchCartData();
                       }}
                     >
@@ -113,7 +122,6 @@ export function CartTable({ cartDetails, refetchCartData }: CartProps) {
             })}
           </div>
         </div>
-
         <div className="col-span-1 grid grid-cols-1">
           <Table aria-label="Price Details">
             <TableHeader>
@@ -155,7 +163,6 @@ export function CartTable({ cartDetails, refetchCartData }: CartProps) {
           </div>
         </div>
       </div>
-      )
     </>
   );
 }

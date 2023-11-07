@@ -19,6 +19,17 @@ export const collectionSchema = z.object({
   price: z.number(),
 });
 
+export const collectionEditSchema = z.object({
+  title: z.string().optional(),
+  author: z.string().optional(),
+  publishedDate: z.string().optional(),
+  rating: z.number().min(1).max(5).optional(),
+  available: z.boolean().optional(),
+  categoryId: z.number().optional(),
+  img: z.string().nullable().optional(),
+  price: z.number().optional(),
+});
+
 export const cartCollectionSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -32,6 +43,21 @@ export const cartCollectionSchema = z.object({
   }),
   img: z.string().nullable(),
   price: z.number(),
+});
+
+export const collectionGetSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  author: z.string(),
+  publishedDate: z.string(),
+  rating: z.number().min(1).max(5),
+  available: z.boolean(),
+  categoryId: z.number(),
+  img: z.string().nullable(),
+  price: z.number(),
+  category: z.object({
+    name: z.string(),
+  }),
 });
 
 export const collectionArraySchema = z.array(cartCollectionSchema);

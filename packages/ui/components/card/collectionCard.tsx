@@ -9,9 +9,14 @@ import { TRPCError } from "../../../trpc";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function CollectionCard(props: CollectionProps) {
+export function CollectionCard({
+  collections,
+  userId,
+  isAdmin,
+  categoryList,
+  refetchCollection,
+}: CollectionProps) {
   const router = useRouter();
-  const { collections, userId, isAdmin } = props;
   const collectionsArray = Object.values(collections);
   const options = { year: "numeric", month: "short", day: "2-digit" };
   const { mutateAsync: postCartItemMutation, isLoading } =
@@ -24,7 +29,6 @@ export function CollectionCard(props: CollectionProps) {
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
       {collectionsArray.map((item) => {
         const isItemLoading = loadingState[item.id] || false;
-
         return (
           <Card shadow="sm" key={item.id} className="m-6 p-2">
             <CardBody className="overflow-visible p-0 flex items-center justify-center">
@@ -55,7 +59,15 @@ export function CollectionCard(props: CollectionProps) {
             </CardBody>
             <CardFooter className="justify-end" key={item.id}>
               <div className="flex">
-                {isAdmin ? <CardEditModal /> : <></>}
+                {isAdmin ? (
+                  <CardEditModal
+                    categoryList={categoryList}
+                    collectionData={item}
+                    refetchCollection={refetchCollection}
+                  />
+                ) : (
+                  <></>
+                )}
                 <Button
                   isDisabled={!item.available || !userId || isItemLoading}
                   color="primary"

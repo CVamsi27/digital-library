@@ -8,17 +8,21 @@ export default function Page({
 }: {
   params: { categoryId: string };
 }): JSX.Element {
-  const { data: collections, isLoading: isLoadingCollection } =
-    params.categoryId == "10" || params.categoryId == "all"
-      ? t.getCollection.useQuery(undefined, defaultUseQueryParams)
-      : t.getCollectionByCategory.useQuery(
-          {
-            categoryId: Number(params.categoryId),
-          },
-          defaultUseQueryParams,
-        );
+  const {
+    data: collections,
+    isLoading: isLoadingCollection,
+    isFetching: isFetchingCollection,
+    refetch: refetchCollection,
+  } = params.categoryId == "10"
+    ? t.getCollection.useQuery(undefined, defaultUseQueryParams)
+    : t.getCollectionByCategory.useQuery(
+        {
+          categoryId: Number(params.categoryId),
+        },
+        defaultUseQueryParams,
+      );
   const { data: categoryList, isLoading: isLoadingCategories } =
-    t.getCategories.useQuery(undefined, defaultUseQueryParams);
+    t.getCategoriesWithoutAll.useQuery(undefined, defaultUseQueryParams);
   const { data: isAdmin, isLoading: isLoadingAdmin } = t.isAdmin.useQuery(
     undefined,
     defaultUseQueryParams,
@@ -33,7 +37,8 @@ export default function Page({
       {isLoadingCollection ||
       isLoadingCategories ||
       isLoadingAdmin ||
-      isLoadingUserId ? (
+      isLoadingUserId ||
+      isFetchingCollection ? (
         <Loading />
       ) : (
         <>
@@ -44,13 +49,17 @@ export default function Page({
               <></>
             )}
           </div>
-          {collections === undefined || isLoadingAdmin ? (
+          {collections === undefined ||
+          categoryList === undefined ||
+          isLoadingAdmin ? (
             <></>
           ) : (
             <CollectionCard
               collections={collections}
               userId={userId}
               isAdmin={isAdmin}
+              categoryList={categoryList}
+              refetchCollection={refetchCollection}
             />
           )}
         </>

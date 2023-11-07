@@ -11,6 +11,7 @@ export default function Page(): JSX.Element {
     refetch: refetchCartData,
     isFetching: isFetchingCartDetails,
   } = t.getCartDetails.useQuery(undefined, defaultUseQueryParams);
+
   return (
     <>
       {isLoadingCartDetails || isFetchingCartDetails ? (

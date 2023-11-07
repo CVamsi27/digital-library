@@ -87,14 +87,14 @@ export function CardAddModal(categoryList: CategoryProps) {
                   placeholder="Select Category"
                   defaultSelectedKeys={["Fiction"]}
                   onChange={(e) => {
-                    const c = categoriesArray.find(
+                    const category = categoriesArray.find(
                       (c) => c.name === e.target.value,
                     );
-                    setCategoryId(c?.id ?? 1);
+                    setCategoryId(category?.id ?? 1);
                   }}
                 >
                   {categoriesArray.map((category) => (
-                    <SelectItem key={category.id} value={category.name}>
+                    <SelectItem key={category.name} value={category.name}>
                       {category.name}
                     </SelectItem>
                   ))}
