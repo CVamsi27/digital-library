@@ -9,9 +9,7 @@ interface QuantityProps {
   collectionId: number;
   quantity: number;
   setQuantity: Dispatch<
-    SetStateAction<{
-      [itemId: number]: number;
-    }>
+    SetStateAction<Record<number, number>>
   >;
 }
 
@@ -25,7 +23,7 @@ export function QuantityCounter({
   return (
     <div className="flex">
       <Button
-        isDisabled={quantity == 1}
+        isDisabled={quantity === 1}
         isIconOnly
         onPress={() => {
           setQuantity((previousState) => ({
@@ -43,7 +41,7 @@ export function QuantityCounter({
       </Button>
       <div className="text-lg p-2 mx-1">{quantity}</div>
       <Button
-        isDisabled={quantity == 10}
+        isDisabled={quantity === 10}
         isIconOnly
         onPress={() => {
           setQuantity((previousState) => ({

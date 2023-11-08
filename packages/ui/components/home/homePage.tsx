@@ -34,7 +34,6 @@ export function HomePage() {
               <Button
                 color="primary"
                 onPress={() => {
-                  alert(process.env.VERCEL_URL);
                   router.push("/categories")
                 }}
               >
