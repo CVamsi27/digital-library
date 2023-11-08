@@ -3,7 +3,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "dotenv -- turbo run dev",
-    "deploy": "turbo run build --scope=app --includeDependencies --no-deps",
+    "deploy": "turbo run build --scope=web --includeDependencies --no-deps",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
