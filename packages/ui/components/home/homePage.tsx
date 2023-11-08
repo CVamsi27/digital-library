@@ -33,7 +33,10 @@ export function HomePage() {
             <div className="mt-8 items-center justify-center">
               <Button
                 color="primary"
-                onPress={() => router.push("/categories")}
+                onPress={() => {
+                  alert(process.env.VERCEL_URL);
+                  router.push("/categories")
+                }}
               >
                 View Project
               </Button>
