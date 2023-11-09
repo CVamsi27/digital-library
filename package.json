@@ -17,6 +17,7 @@
   "packageManager": "pnpm@8.6.10",
   "name": "digital-library",
   "dependencies": {
+    "@prisma/client": "5.4.2",
     "dotenv-cli": "^7.3.0",
     "next-auth": "^4.23.2"
   }
