@@ -34,7 +34,7 @@ export function HomePage() {
               <Button
                 color="primary"
                 onPress={() => {
-                  router.push("/categories")
+                  router.push("/categories");
                 }}
               >
                 View Project

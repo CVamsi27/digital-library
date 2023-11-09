@@ -42,13 +42,7 @@ export function CardEditModal({
   const [category, setCategory] = useState(collectionData.category.name);
   return (
     <>
-      <Button
-        onPress={async () => {
-          onOpen();
-        }}
-      >
-        Edit
-      </Button>
+      <Button onPress={onOpen}>Edit</Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -64,7 +58,6 @@ export function CardEditModal({
               </ModalHeader>
               <ModalBody>
                 <Input
-                  autoFocus
                   endContent
                   label="Title"
                   placeholder="Enter title"
@@ -104,15 +97,15 @@ export function CardEditModal({
                   defaultSelectedKeys={[category]}
                   onChange={(e) => {
                     setCategory(e.target.value);
-                    const category = categoriesArray.find(
+                    const cat = categoriesArray.find(
                       (c) => c.name === e.target.value,
                     );
-                    setCategoryId(category?.id ?? 1);
+                    setCategoryId(cat?.id ?? 1);
                   }}
                 >
-                  {categoriesArray.map((category) => (
-                    <SelectItem key={category.name} value={category.name}>
-                      {category.name}
+                  {categoriesArray.map((cat) => (
+                    <SelectItem key={cat.name} value={cat.name}>
+                      {cat.name}
                     </SelectItem>
                   ))}
                 </Select>
@@ -122,7 +115,9 @@ export function CardEditModal({
                   label="Rating"
                   placeholder="Enter rating"
                   value={String(rating)}
-                  onChange={(e) => setRating(Number(e.target.value))}
+                  onChange={(e) => {
+                    setRating(Number(e.target.value));
+                  }}
                 />
                 <Input
                   endContent
@@ -130,7 +125,9 @@ export function CardEditModal({
                   label="Price"
                   placeholder="Enter price"
                   value={String(price)}
-                  onChange={(e) => setPrice(Number(e.target.value))}
+                  onChange={(e) => {
+                    setPrice(Number(e.target.value));
+                  }}
                 />
                 <div className="flex py-2 px-1 justify-between">
                   <Checkbox
@@ -151,6 +148,7 @@ export function CardEditModal({
                 <Button
                   color="primary"
                   isLoading={isLoadingEditCollection}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                   onPress={async () => {
                     const message = await editCollectionMutation({
                       itemId: collectionData.id,
@@ -165,6 +163,7 @@ export function CardEditModal({
                         price: price,
                       },
                     });
+                    // eslint-disable-next-line no-alert -- required
                     alert(message);
                     await refetchCollection();
                   }}

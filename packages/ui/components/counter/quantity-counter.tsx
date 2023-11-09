@@ -8,9 +8,7 @@ interface QuantityProps {
   itemId: number;
   collectionId: number;
   quantity: number;
-  setQuantity: Dispatch<
-    SetStateAction<Record<number, number>>
-  >;
+  setQuantity: Dispatch<SetStateAction<Record<number, number>>>;
 }
 
 export function QuantityCounter({

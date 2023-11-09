@@ -4,8 +4,9 @@
     "build": "turbo run build",
     "dev": "dotenv -- turbo run dev",
     "deploy": "turbo run build --scope=web --includeDependencies --no-deps",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "turbo run lint -- --quiet",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "postinstall": "cd packages/prisma && prisma generate"
   },
   "devDependencies": {
     "eslint": "^8.48.0",

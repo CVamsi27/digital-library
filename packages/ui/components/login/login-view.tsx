@@ -4,8 +4,8 @@ import { getProviders } from "next-auth/react";
 import { useQuery } from "react-query";
 import { Loading } from "../loading/loaging";
 
-export function LoginView() {
-  const retrieveProviders = async () => await getProviders();
+export function LoginView(): JSX.Element {
+  const retrieveProviders = async () => getProviders();
   const { data: providers, isLoading } = useQuery(
     "providersData",
     retrieveProviders,
@@ -24,8 +24,9 @@ export function LoginView() {
                   <Button
                     className="m-2"
                     size="lg"
-                    onClick={() => {
-                      signIn(provider.id);
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
+                    onClick={async () => {
+                      await signIn(provider.id);
                     }}
                   >
                     Sign in with {provider.name}

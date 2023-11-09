@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
-import { CardEditModal } from "../modal/cardEditModal";
+import { CardEditModal } from "../modal/card-edit-modal";
 import { Star } from "../../icons/star";
 import { CollectionProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
@@ -21,9 +21,7 @@ export function CollectionCard({
   const options = { year: "numeric", month: "short", day: "2-digit" };
   const { mutateAsync: postCartItemMutation, isLoading } =
     t.postToCart.useMutation();
-  const [loadingState, setLoadingState] = useState<{
-    [itemId: string]: boolean;
-  }>({});
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
@@ -66,14 +64,15 @@ export function CollectionCard({
                     refetchCollection={refetchCollection}
                   />
                 ) : (
-                  <></>
+                  <div />
                 )}
                 <Button
                   isDisabled={!item.available || !userId || isItemLoading}
                   color="primary"
                   className="ml-2"
                   isLoading={isItemLoading}
-                  onPress={async () => {
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
+                  onPress={async (): Promise<void> => {
                     if (!userId) {
                       throw new TRPCError({ code: "UNAUTHORIZED" });
                     }
@@ -85,7 +84,7 @@ export function CollectionCard({
 
                     const message = await postCartItemMutation({
                       collectionId: item.id,
-                      userId: userId,
+                      userId,
                     });
 
                     if (!isLoading) {
@@ -95,6 +94,7 @@ export function CollectionCard({
                       }));
                     }
 
+                    // eslint-disable-next-line no-alert -- required
                     alert(message);
                     router.push("/cart");
                   }}

@@ -33,6 +33,7 @@ export function OrderPlacedModal(props: PlaceOrderProps) {
       ) : (
         <Button
           isLoading={isLoadingDeleteCart}
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
           onPress={async () => {
             const message = await placeOrder();
             setOutput(message);
@@ -60,13 +61,17 @@ export function OrderPlacedModal(props: PlaceOrderProps) {
                   color="danger"
                   variant="light"
                   onPress={onClose}
-                  onPressChange={router.refresh}
+                  onPressChange={() => {
+                    router.refresh();
+                  }}
                 >
                   Close
                 </Button>
                 <Button
                   color="primary"
-                  onPress={() => router.push("/categories")}
+                  onPress={() => {
+                    router.push("/categories");
+                  }}
                 >
                   Continue Shopping
                 </Button>

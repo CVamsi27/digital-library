@@ -52,7 +52,6 @@ export function CardAddModal(categoryList: CategoryProps) {
               </ModalHeader>
               <ModalBody>
                 <Input
-                  autoFocus
                   endContent
                   label="Title"
                   placeholder="Enter title"
@@ -104,14 +103,18 @@ export function CardAddModal(categoryList: CategoryProps) {
                   type="number"
                   label="Rating"
                   placeholder="Enter rating"
-                  onChange={(e) => setRating(Number(e.target.value))}
+                  onChange={(e) => {
+                    setRating(Number(e.target.value));
+                  }}
                 />
                 <Input
                   endContent
                   type="number"
                   label="Price"
                   placeholder="Enter price"
-                  onChange={(e) => setPrice(Number(e.target.value))}
+                  onChange={(e) => {
+                    setPrice(Number(e.target.value));
+                  }}
                 />
                 <div className="flex py-2 px-1 justify-between">
                   <Checkbox
@@ -132,6 +135,7 @@ export function CardAddModal(categoryList: CategoryProps) {
                 <Button
                   color="primary"
                   isLoading={isLoadingPostBook}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                   onPress={async () => {
                     try {
                       await postBookMutate({
@@ -144,9 +148,11 @@ export function CardAddModal(categoryList: CategoryProps) {
                         img,
                         price,
                       });
+                      // eslint-disable-next-line no-alert -- required
                       alert("Item added Successfully!");
                       onClose();
-                    } catch (e) {
+                    } catch (e: unknown) {
+                      // eslint-disable-next-line no-alert, @typescript-eslint/restrict-template-expressions -- required
                       alert(`Something went wrong: ${e}`);
                     }
                   }}

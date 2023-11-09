@@ -11,7 +11,7 @@ import {
 import { Logo } from "../../icons/logo";
 import { Search } from "../../icons/search";
 import { Cart } from "../../icons/cart";
-import { ThemeSwitcher } from "../theme/themeSwitcher";
+import { ThemeSwitcher } from "../theme/theme-switcher";
 import { Github } from "../../icons/github";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -98,7 +98,12 @@ export function NavbarCustom() {
             <Search className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
-        <Button isIconOnly onPress={() => router.push("/cart")}>
+        <Button
+          isIconOnly
+          onPress={() => {
+            router.push("/cart");
+          }}
+        >
           <Cart />
         </Button>
 
@@ -107,7 +112,7 @@ export function NavbarCustom() {
             key="logout"
             color="danger"
             onPress={() => {
-              signOut();
+              void signOut();
             }}
           >
             Log Out
