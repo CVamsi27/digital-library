@@ -44,6 +44,16 @@ export const appRouter = router({
     return false;
   }),
 
+  getUrl: publicProcedure
+    .input(z.object({ path: z.string() }))
+    .query(({ input }) => {
+      return process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}${input.path}`
+        : `http://localhost:${process.env.PORT ?? 3000
+        }${input.path}`
+        ;
+    }),
+
   getUserId: privateProcedure.query(async ({ ctx }) => {
     return ctx.userId;
   }),
