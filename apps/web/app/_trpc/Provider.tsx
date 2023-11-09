@@ -5,10 +5,7 @@ import { t } from "trpc/client/client";
 import { httpBatchLink } from "trpc/client";
 
 export default function Provider({ children }: PropsWithChildren) {
-  const url = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/trpc`
-    : `http://localhost:${process.env.PORT ?? 3000}/api/trpc`;
-
+  const url = "https://digital-library-web.vercel.app/api/trpc";
   const [queryClient] = useState(() => new QueryClient({}));
   const [trpcClient] = useState(() =>
     t.createClient({
