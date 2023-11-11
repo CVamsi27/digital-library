@@ -214,7 +214,7 @@ export const appRouter = router({
       });
 
       if (ifExists) {
-        return "Item already exists in Cart";
+        return "Book already exists in Cart";
       }
       await prisma.cart.create({
         data: {
@@ -223,7 +223,7 @@ export const appRouter = router({
         },
       });
 
-      return "Item added in cart";
+      return "Book added in cart";
     }),
 
   deleteFromCart: privateProcedure
@@ -234,7 +234,7 @@ export const appRouter = router({
           id: input.cartId,
         },
       });
-      if (result) return "Item removed successfully";
+      if (result) return "Book removed from Cart";
       else return "Failed";
     }),
 
@@ -251,7 +251,7 @@ export const appRouter = router({
         },
       },
     });
-    if (result.count > 0) return "Order placed successfully";
+    if (result.count > 0) return "Order placed";
     return "Cart is empty";
   }),
 
@@ -273,7 +273,7 @@ export const appRouter = router({
           price: input.data.price,
         },
       });
-      if (result) return "Data updated successfully";
+      if (result) return "Book details are updated";
       return "Error";
     }),
 
@@ -296,7 +296,7 @@ export const appRouter = router({
           quantity: input.quantity,
         },
       });
-      if (result) return "Quantity updated successfully";
+      if (result) return "Quantity updated";
       return "Error";
     }),
 });

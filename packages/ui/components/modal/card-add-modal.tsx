@@ -149,7 +149,7 @@ export function CardAddModal(categoryList: CategoryProps) {
                         price,
                       });
                       // eslint-disable-next-line no-alert -- required
-                      alert("Item added Successfully!");
+                      alert("Book added Successfully!");
                       onClose();
                     } catch (e: unknown) {
                       // eslint-disable-next-line no-alert, @typescript-eslint/restrict-template-expressions -- required
