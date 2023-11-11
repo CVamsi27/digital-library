@@ -55,22 +55,25 @@ export const appRouter = router({
         select: {
           id: true,
           email: true,
-          name: true
-        }
-      })
+          name: true,
+          role: true,
+        },
+      });
 
-      if (!user || input.password !== process.env.ADMIN_SECRET) return "User does not exist";
+      if (!user || input.password !== process.env.ADMIN_SECRET)
+        return "User does not exist";
+      if (user.role === "ADMIN") return `${user.name} already has Admin Access`;
 
       const upgrade = await prisma.user.update({
         where: {
           id: user.id,
         },
         data: {
-          role: Role.ADMIN
-        }
+          role: Role.ADMIN,
+        },
       });
 
-      if(upgrade) return `${user.name} now has Admin Access`;
+      if (upgrade) return `${user.name} now has Admin Access`;
       return "Error";
     }),
 
@@ -211,7 +214,7 @@ export const appRouter = router({
       });
 
       if (ifExists) {
-        return "Data already exists";
+        return "Item already exists in Cart";
       }
       await prisma.cart.create({
         data: {
@@ -220,7 +223,7 @@ export const appRouter = router({
         },
       });
 
-      return "Data inserted successfully";
+      return "Item added in cart";
     }),
 
   deleteFromCart: privateProcedure

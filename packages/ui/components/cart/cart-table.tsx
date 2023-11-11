@@ -19,7 +19,10 @@ import { CartProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
 
-export function CartTable({ cartDetails, refetchCartData }: CartProps) {
+export function CartTable({
+  cartDetails,
+  refetchCartData,
+}: CartProps): JSX.Element {
   const list = Object.values(cartDetails);
   const options = { year: "numeric", month: "short", day: "2-digit" };
 

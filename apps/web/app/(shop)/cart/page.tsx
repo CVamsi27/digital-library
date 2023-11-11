@@ -16,8 +16,10 @@ export default function Page(): JSX.Element {
     <>
       {isLoadingCartDetails || isFetchingCartDetails ? (
         <Loading />
-      ) : !cartDetails ? (
-        <></>
+      ) : !cartDetails || cartDetails.length === 0 ? (
+        <div className="flex justify-center items-center mt-80">
+          <p className="text-3xl text-gray-600">Your Cart is Empty</p>
+        </div>
       ) : (
         <CartTable
           cartDetails={cartDetails}

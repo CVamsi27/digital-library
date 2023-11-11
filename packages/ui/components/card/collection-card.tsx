@@ -5,8 +5,7 @@ import { CardEditModal } from "../modal/card-edit-modal";
 import { Star } from "../../icons/star";
 import { CollectionProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
-import { TRPCError } from "../../../trpc";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function CollectionCard({
@@ -15,8 +14,9 @@ export function CollectionCard({
   isAdmin,
   categoryList,
   refetchCollection,
-}: CollectionProps) {
+}: CollectionProps): JSX.Element {
   const router = useRouter();
+  const params = usePathname();
   const collectionsArray = Object.values(collections);
   const options = { year: "numeric", month: "short", day: "2-digit" };
   const { mutateAsync: postCartItemMutation, isLoading } =
@@ -67,14 +67,15 @@ export function CollectionCard({
                   <div />
                 )}
                 <Button
-                  isDisabled={!item.available || !userId || isItemLoading}
+                  isDisabled={!item.available || isItemLoading}
                   color="primary"
                   className="ml-2"
                   isLoading={isItemLoading}
                   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                   onPress={async () => {
                     if (!userId) {
-                      throw new TRPCError({ code: "UNAUTHORIZED" });
+                      router.push("/signin/" + params);
+                      return;
                     }
 
                     setLoadingState((prevLoadingState) => ({

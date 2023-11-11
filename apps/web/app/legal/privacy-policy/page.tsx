@@ -164,8 +164,8 @@ export default function Page() {
                 Usage Data is collected automatically when using the Service.
               </p>
               <p>
-                Usage Data may include information such as Your Device{`&apos;`}s
-                Internet Protocol address (e.g. IP address), browser type,
+                Usage Data may include information such as Your Device{`&apos;`}
+                s Internet Protocol address (e.g. IP address), browser type,
                 browser version, the pages of our Service that You visit, the
                 time and date of Your visit, the time spent on those pages,
                 unique device identifiers and other diagnostic data.
@@ -311,11 +311,12 @@ export default function Page() {
                   <p>
                     <strong>To contact You:</strong> To contact You by email,
                     telephone calls, SMS, or other equivalent forms of
-                    electronic communication, such as a mobile application&apos;s
-                    push notifications regarding updates or informative
-                    communications related to the functionalities, products or
-                    contracted services, including the security updates, when
-                    necessary or reasonable for their implementation.
+                    electronic communication, such as a mobile
+                    application&apos;s push notifications regarding updates or
+                    informative communications related to the functionalities,
+                    products or contracted services, including the security
+                    updates, when necessary or reasonable for their
+                    implementation.
                   </p>
                 </li>
                 <li>
@@ -415,10 +416,10 @@ export default function Page() {
               <h3>Transfer of Your Personal Data</h3>
               <p>
                 Your information, including Personal Data, is processed at the
-                Company&apos;s operating offices and in any other places where the
-                parties involved in the processing are located. It means that
-                this information may be transferred to — and maintained on —
-                computers located outside of Your state, province, country or
+                Company&apos;s operating offices and in any other places where
+                the parties involved in the processing are located. It means
+                that this information may be transferred to — and maintained on
+                — computers located outside of Your state, province, country or
                 other governmental jurisdiction where the data protection laws
                 may differ than those from Your jurisdiction.
               </p>
@@ -513,15 +514,15 @@ export default function Page() {
               <p>
                 If We need to rely on consent as a legal basis for processing
                 Your information and Your country requires consent from a
-                parent, We may require Your parent&apos;s consent before We collect
-                and use that information.
+                parent, We may require Your parent&apos;s consent before We
+                collect and use that information.
               </p>
               <h2>Links to Other Websites</h2>
               <p>
                 Our Service may contain links to other websites that are not
                 operated by Us. If You click on a third party link, You will be
-                directed to that third party&apos;s site. We strongly advise You to
-                review the Privacy Policy of every site You visit.
+                directed to that third party&apos;s site. We strongly advise You
+                to review the Privacy Policy of every site You visit.
               </p>
               <p>
                 We have no control over and assume no responsibility for the
@@ -550,9 +551,7 @@ export default function Page() {
                 contact us:
               </p>
               <ul>
-                <li>
-                  By email:{" "} cvamsik99@gmail.com
-                </li>
+                <li>By email: cvamsik99@gmail.com</li>
               </ul>
             </div>
           </div>

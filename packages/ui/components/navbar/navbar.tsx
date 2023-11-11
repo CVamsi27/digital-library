@@ -5,11 +5,10 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Input,
   Button,
+  Tooltip,
 } from "@nextui-org/react";
 import { Logo } from "../../icons/logo";
-import { Search } from "../../icons/search";
 import { Cart } from "../../icons/cart";
 import { ThemeSwitcher } from "../theme/theme-switcher";
 import { Github } from "../../icons/github";
@@ -70,15 +69,20 @@ export function NavbarCustom() {
 
       <NavbarContent as="div" className="items-center" justify="end">
         <ThemeSwitcher />
-        <Button
-          isIconOnly
-          onPress={() =>
-            window.open("https://github.com/CVamsi27/digital-library", "_blank")
-          }
-        >
-          <Github />
-        </Button>
-        <Input
+        <Tooltip content="View Project's Github code">
+          <Button
+            isIconOnly
+            onPress={() =>
+              window.open(
+                "https://github.com/CVamsi27/digital-library",
+                "_blank",
+              )
+            }
+          >
+            <Github />
+          </Button>
+        </Tooltip>
+        {/* <Input
           className="max-w-xs"
           label="Search"
           isClearable
@@ -97,16 +101,17 @@ export function NavbarCustom() {
           startContent={
             <Search className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
-        />
-        <Button
-          isIconOnly
-          onPress={() => {
-            router.push("/cart");
-          }}
-        >
-          <Cart />
-        </Button>
-
+        /> */}
+        <Tooltip content="View Cart">
+          <Button
+            isIconOnly
+            onPress={() => {
+              router.push("/cart");
+            }}
+          >
+            <Cart />
+          </Button>
+        </Tooltip>
         {session ? (
           <Button
             key="logout"

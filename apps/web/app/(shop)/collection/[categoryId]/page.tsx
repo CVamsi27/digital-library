@@ -53,6 +53,10 @@ export default function Page({
           categoryList === undefined ||
           isLoadingAdmin ? (
             <></>
+          ) : collections?.length === 0 ? (
+            <div className="flex justify-center items-center mt-80">
+              <p className="text-3xl text-gray-600">Results are Empty</p>
+            </div>
           ) : (
             <CollectionCard
               collections={collections}
