@@ -4,6 +4,7 @@ import { privateProcedure, publicProcedure, router } from "../trpc";
 import { collectionSchema, collectionEditSchema } from "../../../zod-schemas";
 import { getServerSession } from "next-auth/next";
 import { TRPCError } from "@trpc/server";
+import { Role } from "@prisma/client";
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -43,6 +44,35 @@ export const appRouter = router({
     if (dbUser?.role == "ADMIN") return true;
     return false;
   }),
+
+  grantAdminAccess: privateProcedure
+    .input(z.object({ email: z.string(), password: z.string() }))
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.findFirst({
+        where: {
+          email: input.email,
+        },
+        select: {
+          id: true,
+          email: true,
+          name: true
+        }
+      })
+
+      if (!user || input.password !== process.env.ADMIN_SECRET) return "User does not exist";
+
+      const upgrade = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          role: Role.ADMIN
+        }
+      });
+
+      if(upgrade) return `${user.name} now has Admin Access`;
+      return "Error";
+    }),
 
   getUrl: publicProcedure
     .input(z.object({ path: z.string() }))

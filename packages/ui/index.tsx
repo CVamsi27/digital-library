@@ -10,5 +10,6 @@ export {
   CategoryCard,
   LoginView,
   Loading,
+  AccessView,
 } from "./components";
 export * from "react-query";

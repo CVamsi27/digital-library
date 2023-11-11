@@ -72,7 +72,7 @@ export function CollectionCard({
                   className="ml-2"
                   isLoading={isItemLoading}
                   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
-                  onPress={async (): Promise<void> => {
+                  onPress={async () => {
                     if (!userId) {
                       throw new TRPCError({ code: "UNAUTHORIZED" });
                     }
