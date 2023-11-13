@@ -18,12 +18,14 @@ export function AccessView(): JSX.Element {
         onValueChange={setEmail}
         placeholder="Enter email"
         type="email"
+        value={email}
       />
       <Input
         label="Password"
         onValueChange={setPassword}
         placeholder="Enter password"
         type="password"
+        value={password}
       />
       <Button
         color="primary"
