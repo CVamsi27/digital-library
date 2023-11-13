@@ -60,8 +60,9 @@ export const appRouter = router({
         },
       });
 
-      if (!user || input.password !== process.env.ADMIN_SECRET)
-        return "User does not exist";
+      if (!user) return "User does not exist";
+      if (input.password !== process.env.ADMIN_SECRET)
+        return "Password is Incorrect";
       if (user.role === "ADMIN") return `${user.name} already has Admin Access`;
 
       const upgrade = await prisma.user.update({

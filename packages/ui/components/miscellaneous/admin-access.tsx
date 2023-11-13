@@ -36,8 +36,10 @@ export function AccessView(): JSX.Element {
           });
           // eslint-disable-next-line no-alert -- required
           alert(message);
-          setEmail("");
-          setPassword("");
+          if (message.endsWith("Access")) {
+            setEmail("");
+            setPassword("");
+          }
         }}
       >
         Grant Access
