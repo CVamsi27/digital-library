@@ -74,7 +74,12 @@ export function CollectionCard({
                   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                   onPress={async () => {
                     if (!userId) {
-                      router.push("/signin/" + params);
+                      router.push(
+                        "/signin/" +
+                          params +
+                          "?collectionId=" +
+                          item.id,
+                      );
                       return;
                     }
 

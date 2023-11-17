@@ -25,7 +25,7 @@ export function LoginView(): JSX.Element {
                     className="m-2"
                     size="lg"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
-                    onClick={async () => {
+                    onPress={async () => {
                       await signIn(provider.id);
                     }}
                   >
