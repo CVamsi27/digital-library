@@ -12,36 +12,28 @@ export default function SignIn({ params }: SourceProps) {
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
   const collectionId = searchParams.get("collectionId");
-  const { mutate: postCartItemMutation, isLoading: addToCartLoading } =
-    t.postToCart.useMutation();
   const { data: userId, isLoading: getUserIdLoading } = t.getUserId.useQuery(
     undefined,
     defaultUseQueryParams,
   );
+  const { mutate: postCartItemMutation, isLoading: addToCartLoading } =
+    t.postToCart.useMutation();
+  const dataMigration = () => {
+    if (status === "loading" || addToCartLoading || getUserIdLoading) {
+      return <Loading />;
+    } else if (collectionId && userId && session) {
+      postCartItemMutation({
+        collectionId: Number(collectionId),
+        userId: userId,
+      });
+      if (addToCartLoading) return <Loading />;
+      else router.push("/cart");
+    } else if (session) {
+      router.push("/" + params.source.join("/"));
+    } else {
+      return <LoginView />;
+    }
+  };
 
-  if (collectionId && userId && session) {
-    postCartItemMutation({
-      collectionId: Number(collectionId),
-      userId: userId,
-    });
-    router.push("/cart");
-  } else if (session) {
-    router.push("/" + params.source.join("/"));
-  } else if (collectionId) {
-    router.push(
-      "/signin/" + params.source.join("/") + "?collectionId=" + collectionId,
-    );
-  } else {
-    router.push("/signin/" + params.source.join("/"));
-  }
-
-  return (
-    <>
-      {status === "loading" || addToCartLoading || getUserIdLoading ? (
-        <Loading />
-      ) : (
-        <LoginView />
-      )}
-    </>
-  );
+  return <>{dataMigration()}</>;
 }
