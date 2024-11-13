@@ -7,6 +7,7 @@ import { CollectionProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useToast } from "../../hooks";
 
 export function CollectionCard({
   collections,
@@ -22,6 +23,7 @@ export function CollectionCard({
   const { mutateAsync: postCartItemMutation, isLoading } =
     t.postToCart.useMutation();
   const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+  const { toast } = useToast();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
@@ -75,10 +77,7 @@ export function CollectionCard({
                   onPress={async () => {
                     if (!userId) {
                       router.push(
-                        "/signin/" +
-                          params +
-                          "?collectionId=" +
-                          item.id,
+                        "/signin/" + params + "?collectionId=" + item.id,
                       );
                       return;
                     }
@@ -100,8 +99,7 @@ export function CollectionCard({
                       }));
                     }
 
-                    // eslint-disable-next-line no-alert -- required
-                    alert(message);
+                    toast({ message: message });
                     router.push("/cart");
                   }}
                 >

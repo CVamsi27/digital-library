@@ -1,15 +1,19 @@
+"use-client";
 /* eslint-disable @typescript-eslint/no-unsafe-call -- required */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access -- required */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- required */
 import { Button, Input } from "@nextui-org/react";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
+import { useToast } from "../../hooks";
 
 export function AccessView(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutateAsync: grantAccess, isLoading } =
     t.grantAdminAccess.useMutation();
+  const { toast } = useToast();
+
   return (
     <div className="grid grid-col-1 gap-4 w-72 mt-10 mx-auto">
       <div className="mx-auto">Provide Admin Access</div>
@@ -36,15 +40,18 @@ export function AccessView(): JSX.Element {
             email,
             password,
           });
-          // eslint-disable-next-line no-alert -- required
-          alert(message);
+          toast({
+            message: "Book added Successfully!",
+            color: "green",
+            duration: 3000,
+          });
           if (message.endsWith("Access")) {
             setEmail("");
             setPassword("");
           }
         }}
       >
-        Grant Access
+        Get Admin Access
       </Button>
     </div>
   );

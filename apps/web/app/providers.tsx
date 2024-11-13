@@ -17,7 +17,7 @@ export default function Providers({
   return (
     <QueryClientProvider client={client}>
       <SessionProvider session={session}>
-        <NextUIProvider>
+        <NextUIProvider className="h-full">
           <NextThemesProvider
             attribute="class"
             defaultTheme="dark"

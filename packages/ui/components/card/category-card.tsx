@@ -7,10 +7,10 @@ export function CategoryCard(categories: CategoryProps) {
   const navigation = "/collection/";
   const categoriesArray = Object.values(categories);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 m-10">
+    <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-6 m-6">
       {categoriesArray.map((item) => (
         <Link href={navigation + item.id} key="{item}">
-          <Card className="my-4 mx-10" key="{item}">
+          <Card key="{item}" className="hover:bg-primary-500 hover:text-white">
             <CardBody
               className={"text-center p-20 text-3xl " + item.color}
               key="{item}"

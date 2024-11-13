@@ -7,14 +7,15 @@ import {
   NavbarItem,
   Button,
   Tooltip,
+  Input,
 } from "@nextui-org/react";
 import { Logo } from "../../icons/logo";
 import { Cart } from "../../icons/cart";
 import { ThemeSwitcher } from "../theme/theme-switcher";
-import { Github } from "../../icons/github";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { Search } from "../../icons/search";
 
 export function NavbarCustom() {
   const { data: session } = useSession();
@@ -69,20 +70,7 @@ export function NavbarCustom() {
 
       <NavbarContent as="div" className="items-center" justify="end">
         <ThemeSwitcher />
-        <Tooltip content="View Project's Github code">
-          <Button
-            isIconOnly
-            onPress={() =>
-              window.open(
-                "https://github.com/CVamsi27/digital-library",
-                "_blank",
-              )
-            }
-          >
-            <Github />
-          </Button>
-        </Tooltip>
-        {/* <Input
+        <Input
           className="max-w-xs"
           label="Search"
           isClearable
@@ -101,7 +89,7 @@ export function NavbarCustom() {
           startContent={
             <Search className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
-        /> */}
+        />
         <Tooltip content="View Cart">
           <Button
             isIconOnly

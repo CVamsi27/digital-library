@@ -28,7 +28,7 @@ importers:
         version: link:packages/tsconfig
       turbo:
         specifier: latest
-        version: 1.10.15
+        version: 2.2.3
 
   apps/web:
     dependencies:
@@ -167,9 +167,27 @@ importers:
 
   packages/ui:
     dependencies:
+      "@fortawesome/fontawesome-svg-core":
+        specifier: ^6.6.0
+        version: 6.6.0
+      "@fortawesome/free-brands-svg-icons":
+        specifier: ^6.6.0
+        version: 6.6.0
+      "@fortawesome/free-regular-svg-icons":
+        specifier: ^6.6.0
+        version: 6.6.0
+      "@fortawesome/free-solid-svg-icons":
+        specifier: ^6.6.0
+        version: 6.6.0
+      "@fortawesome/react-fontawesome":
+        specifier: ^0.2.2
+        version: 0.2.2(@fortawesome/fontawesome-svg-core@6.6.0)(react@18.2.0)
       "@nextui-org/react":
         specifier: ^2.1.7
         version: 2.1.13(@types/react@18.2.5)(framer-motion@10.16.4)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.3)
+      lucide-react:
+        specifier: ^0.455.0
+        version: 0.455.0(react@18.2.0)
       next:
         specifier: 13.5.4
         version: 13.5.4(react-dom@18.2.0)(react@18.2.0)
@@ -691,6 +709,68 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@fortawesome/fontawesome-common-types@6.6.0:
+    resolution:
+      {
+        integrity: sha512-xyX0X9mc0kyz9plIyryrRbl7ngsA9jz77mCZJsUkLl+ZKs0KWObgaEBoSgQiYWAsSmjz/yjl0F++Got0Mdp4Rw==,
+      }
+    engines: { node: ">=6" }
+    dev: false
+
+  /@fortawesome/fontawesome-svg-core@6.6.0:
+    resolution:
+      {
+        integrity: sha512-KHwPkCk6oRT4HADE7smhfsKudt9N/9lm6EJ5BVg0tD1yPA5hht837fB87F8pn15D8JfTqQOjhKTktwmLMiD7Kg==,
+      }
+    engines: { node: ">=6" }
+    dependencies:
+      "@fortawesome/fontawesome-common-types": 6.6.0
+    dev: false
+
+  /@fortawesome/free-brands-svg-icons@6.6.0:
+    resolution:
+      {
+        integrity: sha512-1MPD8lMNW/earme4OQi1IFHtmHUwAKgghXlNwWi9GO7QkTfD+IIaYpIai4m2YJEzqfEji3jFHX1DZI5pbY/biQ==,
+      }
+    engines: { node: ">=6" }
+    dependencies:
+      "@fortawesome/fontawesome-common-types": 6.6.0
+    dev: false
+
+  /@fortawesome/free-regular-svg-icons@6.6.0:
+    resolution:
+      {
+        integrity: sha512-Yv9hDzL4aI73BEwSEh20clrY8q/uLxawaQ98lekBx6t9dQKDHcDzzV1p2YtBGTtolYtNqcWdniOnhzB+JPnQEQ==,
+      }
+    engines: { node: ">=6" }
+    dependencies:
+      "@fortawesome/fontawesome-common-types": 6.6.0
+    dev: false
+
+  /@fortawesome/free-solid-svg-icons@6.6.0:
+    resolution:
+      {
+        integrity: sha512-IYv/2skhEDFc2WGUcqvFJkeK39Q+HyPf5GHUrT/l2pKbtgEIv1al1TKd6qStR5OIwQdN1GZP54ci3y4mroJWjA==,
+      }
+    engines: { node: ">=6" }
+    dependencies:
+      "@fortawesome/fontawesome-common-types": 6.6.0
+    dev: false
+
+  /@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.6.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-EnkrprPNqI6SXJl//m29hpaNzOp1bruISWaOiRtkMi/xSvHJlzc2j2JAYS7egxt/EbjSNV/k6Xy0AQI6vB2+1g==,
+      }
+    peerDependencies:
+      "@fortawesome/fontawesome-svg-core": ~1 || ~6
+      react: ">=16.3"
+    dependencies:
+      "@fortawesome/fontawesome-svg-core": 6.6.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /@humanwhocodes/config-array@0.11.10:
     resolution:
       {
@@ -711,6 +791,7 @@ packages:
         integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==,
       }
     engines: { node: ">=10.10.0" }
+    deprecated: Use @eslint/config-array instead
     dependencies:
       "@humanwhocodes/object-schema": 2.0.1
       debug: 4.3.4
@@ -739,6 +820,7 @@ packages:
       {
         integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==,
       }
+    deprecated: Use @eslint/object-schema instead
     dev: true
 
   /@internationalized/date@3.5.0:
@@ -6017,6 +6099,7 @@ packages:
         integrity: sha512-zh/JHnaixqHZsolRB/w9/02akBk9EPrOs9JwcTP2ek7yL5bVvXuRariiaAjjoJ5DvuwQ1WAE/HsMz+w17YgBCg==,
       }
     engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     dependencies:
       "@eslint-community/eslint-utils": 4.4.0(eslint@8.52.0)
@@ -7725,6 +7808,17 @@ packages:
     engines: { node: ">=12" }
     dev: true
 
+  /lucide-react@0.455.0(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-XQoi58X4COfjy6s1P4TVsXMhU2r1KsfUTRFyds/yJvdzBNOfu0F9RRIas626T8UaNZzEv4llF7ivh4uLkYp3rw==,
+      }
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /make-error@1.3.6:
     resolution:
       {
@@ -8702,7 +8796,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /proxy-agent@6.3.0:
     resolution:
@@ -8773,7 +8866,6 @@ packages:
       {
         integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==,
       }
-    dev: true
 
   /react-query@3.39.3(react-dom@18.2.0)(react@18.2.0):
     resolution:
@@ -9920,10 +10012,10 @@ packages:
       typescript: 4.9.5
     dev: true
 
-  /turbo-darwin-64@1.10.15:
+  /turbo-darwin-64@2.2.3:
     resolution:
       {
-        integrity: sha512-Sik5uogjkRTe1XVP9TC2GryEMOJCaKE2pM/O9uLn4koQDnWKGcLQv+mDU+H+9DXvKLnJnKCD18OVRkwK5tdpoA==,
+        integrity: sha512-Rcm10CuMKQGcdIBS3R/9PMeuYnv6beYIHqfZFeKWVYEWH69sauj4INs83zKMTUiZJ3/hWGZ4jet9AOwhsssLyg==,
       }
     cpu: [x64]
     os: [darwin]
@@ -9931,10 +10023,10 @@ packages:
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.10.15:
+  /turbo-darwin-arm64@2.2.3:
     resolution:
       {
-        integrity: sha512-xwqyFDYUcl2xwXyGPmHkmgnNm4Cy0oNzMpMOBGRr5x64SErS7QQLR4VHb0ubiR+VAb8M+ECPklU6vD1Gm+wekg==,
+        integrity: sha512-+EIMHkuLFqUdJYsA3roj66t9+9IciCajgj+DVek+QezEdOJKcRxlvDOS2BUaeN8kEzVSsNiAGnoysFWYw4K0HA==,
       }
     cpu: [arm64]
     os: [darwin]
@@ -9942,10 +10034,10 @@ packages:
     dev: true
     optional: true
 
-  /turbo-linux-64@1.10.15:
+  /turbo-linux-64@2.2.3:
     resolution:
       {
-        integrity: sha512-dM07SiO3RMAJ09Z+uB2LNUSkPp3I1IMF8goH5eLj+d8Kkwoxd/+qbUZOj9RvInyxU/IhlnO9w3PGd3Hp14m/nA==,
+        integrity: sha512-UBhJCYnqtaeOBQLmLo8BAisWbc9v9daL9G8upLR+XGj6vuN/Nz6qUAhverN4Pyej1g4Nt1BhROnj6GLOPYyqxQ==,
       }
     cpu: [x64]
     os: [linux]
@@ -9953,10 +10045,10 @@ packages:
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.10.15:
+  /turbo-linux-arm64@2.2.3:
     resolution:
       {
-        integrity: sha512-MkzKLkKYKyrz4lwfjNXH8aTny5+Hmiu4SFBZbx+5C0vOlyp6fV5jZANDBvLXWiDDL4DSEAuCEK/2cmN6FVH1ow==,
+        integrity: sha512-hJYT9dN06XCQ3jBka/EWvvAETnHRs3xuO/rb5bESmDfG+d9yQjeTMlhRXKrr4eyIMt6cLDt1LBfyi+6CQ+VAwQ==,
       }
     cpu: [arm64]
     os: [linux]
@@ -9964,10 +10056,10 @@ packages:
     dev: true
     optional: true
 
-  /turbo-windows-64@1.10.15:
+  /turbo-windows-64@2.2.3:
     resolution:
       {
-        integrity: sha512-3TdVU+WEH9ThvQGwV3ieX/XHebtYNHv9HARHauPwmVj3kakoALkpGxLclkHFBLdLKkqDvmHmXtcsfs6cXXRHJg==,
+        integrity: sha512-NPrjacrZypMBF31b4HE4ROg4P3nhMBPHKS5WTpMwf7wydZ8uvdEHpESVNMOtqhlp857zbnKYgP+yJF30H3N2dQ==,
       }
     cpu: [x64]
     os: [win32]
@@ -9975,10 +10067,10 @@ packages:
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.10.15:
+  /turbo-windows-arm64@2.2.3:
     resolution:
       {
-        integrity: sha512-l+7UOBCbfadvPMYsX08hyLD+UIoAkg6ojfH+E8aud3gcA1padpjCJTh9gMpm3QdMbKwZteT5uUM+wyi6Rbbyww==,
+        integrity: sha512-fnNrYBCqn6zgKPKLHu4sOkihBI/+0oYFr075duRxqUZ+1aLWTAGfHZLgjVeLh3zR37CVzuerGIPWAEkNhkWEIw==,
       }
     cpu: [arm64]
     os: [win32]
@@ -9986,19 +10078,19 @@ packages:
     dev: true
     optional: true
 
-  /turbo@1.10.15:
+  /turbo@2.2.3:
     resolution:
       {
-        integrity: sha512-mKKkqsuDAQy1wCCIjCdG+jOCwUflhckDMSRoeBPcIL/CnCl7c5yRDFe7SyaXloUUkt4tUR0rvNIhVCcT7YeQpg==,
+        integrity: sha512-5lDvSqIxCYJ/BAd6rQGK/AzFRhBkbu4JHVMLmGh/hCb7U3CqSnr5Tjwfy9vc+/5wG2DJ6wttgAaA7MoCgvBKZQ==,
       }
     hasBin: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.15
-      turbo-darwin-arm64: 1.10.15
-      turbo-linux-64: 1.10.15
-      turbo-linux-arm64: 1.10.15
-      turbo-windows-64: 1.10.15
-      turbo-windows-arm64: 1.10.15
+      turbo-darwin-64: 2.2.3
+      turbo-darwin-arm64: 2.2.3
+      turbo-linux-64: 2.2.3
+      turbo-linux-arm64: 2.2.3
+      turbo-windows-64: 2.2.3
+      turbo-windows-arm64: 2.2.3
     dev: true
 
   /type-check@0.4.0:

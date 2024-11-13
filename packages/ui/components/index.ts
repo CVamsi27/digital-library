@@ -10,3 +10,5 @@ export { CartTable } from "./cart/cart-table";
 export { CategoryCard } from "./card/category-card";
 export { LoginView } from "./login/login-view";
 export { AccessView } from "./miscellaneous/admin-access";
+export { Footer } from "./footer/footer";
+export { Toast } from "./toast/toast";

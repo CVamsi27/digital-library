@@ -16,6 +16,7 @@ import {
 import { CategoryProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
+import { useToast } from "../../hooks";
 
 export function CardAddModal(categoryList: CategoryProps) {
   const { mutateAsync: postBookMutate, isLoading: isLoadingPostBook } =
@@ -31,6 +32,7 @@ export function CardAddModal(categoryList: CategoryProps) {
   const [categoryId, setCategoryId] = useState(1);
   const [img, setImg] = useState("");
   const [price, setPrice] = useState(1);
+  const { toast } = useToast();
 
   return (
     <>
@@ -148,12 +150,21 @@ export function CardAddModal(categoryList: CategoryProps) {
                         img,
                         price,
                       });
-                      // eslint-disable-next-line no-alert -- required
-                      alert("Book added Successfully!");
+                      toast({
+                        message: "Book added Successfully!",
+                        duration: 3000,
+                      });
                       onClose();
+                      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- required
                     } catch (e: unknown) {
-                      // eslint-disable-next-line no-alert, @typescript-eslint/restrict-template-expressions -- required
-                      alert(`Something went wrong: ${e}`);
+                      const errorMessage =
+                        e instanceof Error
+                          ? e.message
+                          : "An unknown error occurred";
+                      toast({
+                        message: `Something went wrong: ${errorMessage}`,
+                        duration: 3000,
+                      });
                     }
                   }}
                 >

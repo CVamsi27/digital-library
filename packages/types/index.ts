@@ -41,3 +41,16 @@ export interface CardEditProps {
   collectionData: z.infer<typeof collectionGetSchema>;
   refetchCollection: ReturnType<typeof t.getCategories.useQuery>["refetch"];
 }
+
+export interface ToastProps {
+  id: number;
+  message: string;
+  duration?: number;
+}
+
+export interface ToastOptions extends Omit<ToastProps, "id"> {}
+
+export interface ToastContextType {
+  toast: (options: ToastOptions) => void;
+  removeToast: (id: number) => void;
+}

@@ -16,6 +16,7 @@ import {
 import { CardEditProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
+import { useToast } from "../../hooks";
 
 export function CardEditModal({
   categoryList,
@@ -40,6 +41,8 @@ export function CardEditModal({
   const [img, setImg] = useState(collectionData.img);
   const [price, setPrice] = useState(collectionData.price);
   const [category, setCategory] = useState(collectionData.category.name);
+  const { toast } = useToast();
+
   return (
     <>
       <Button onPress={onOpen}>Edit</Button>
@@ -163,8 +166,10 @@ export function CardEditModal({
                         price: price,
                       },
                     });
-                    // eslint-disable-next-line no-alert -- required
-                    alert(message);
+                    toast({
+                      message: message,
+                      duration: 3000,
+                    });
                     await refetchCollection();
                   }}
                 >

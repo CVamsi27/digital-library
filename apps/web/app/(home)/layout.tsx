@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Providers from "../providers";
 import Navbar from "../_lib/components/navbar";
 import { getServerSession } from "next-auth";
+import { Footer } from "ui/components";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,17 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession();
   return (
-    <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+    <html lang="en" className="h-full">
+      <body
+        className={inter.className + " relative h-full font-mono antialiased"}
+        suppressHydrationWarning={true}
+      >
         <Providers session={session}>
-          <main>{children}</main>
-          <footer></footer>
+          <main className="relative flex flex-col h-full">
+            <Navbar />
+            <div className="flex-grow flex-1 bg-background">{children}</div>
+            <Footer />
+          </main>
         </Providers>
       </body>
     </html>

@@ -15,14 +15,17 @@ export function LoginView(): JSX.Element {
       {isLoading || !providers ? (
         <Loading />
       ) : (
-        <div className="h-full flex justify-center mt-20">
+        <div className="flex justify-center md:mt-20">
           <Card>
-            <CardHeader className="flex flex-col gap-2">Log In</CardHeader>
+            <CardHeader className="flex flex-col gap-2 text-xl font-bold">
+              Log In Using
+            </CardHeader>
             <CardBody>
               {Object.values(providers).map((provider) => (
                 <div key={provider.name}>
                   <Button
                     className="m-2"
+                    color="primary"
                     size="lg"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                     onPress={async () => {

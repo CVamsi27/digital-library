@@ -18,11 +18,13 @@ import { QuantityCounter } from "../counter/quantity-counter";
 import { CartProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
+import { useToast } from "../../hooks";
 
 export function CartTable({
   cartDetails,
   refetchCartData,
 }: CartProps): JSX.Element {
+  const { toast } = useToast();
   const list = Object.values(cartDetails);
   const options = { year: "numeric", month: "short", day: "2-digit" };
 
@@ -109,8 +111,8 @@ export function CartTable({
                           [item.id]: false,
                         }));
                       }
-                      // eslint-disable-next-line no-alert -- required
-                      alert(result);
+
+                      toast({ message: result });
                       await refetchCartData();
                     }}
                   >

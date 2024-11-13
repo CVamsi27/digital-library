@@ -5,6 +5,8 @@ import Providers from "../providers";
 import Navbar from "../_lib/components/navbar";
 import { getServerSession } from "next-auth";
 import Provider from "@/app/_trpc/Provider";
+import { Footer } from "ui/components";
+import { ToastProvider } from "ui";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,18 +25,21 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession();
   return (
-    <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+    <html lang="en" className="h-full">
+      <body
+        className={inter.className + " relative h-full font-mono antialiased"}
+        suppressHydrationWarning={true}
+      >
         <Providers session={session}>
-          <header>
-            <nav>
-              <Navbar />
-            </nav>
-          </header>
-          <main>
-            <Provider>{children}</Provider>
+          <main className="relative flex flex-col h-full">
+            <Navbar />
+            <div className="flex-grow flex-1 bg-background">
+              <Provider>
+                <ToastProvider>{children}</ToastProvider>
+              </Provider>
+            </div>
+            <Footer />
           </main>
-          <footer></footer>
         </Providers>
       </body>
     </html>
