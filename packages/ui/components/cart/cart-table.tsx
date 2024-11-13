@@ -47,7 +47,7 @@ export function CartTable({
   return (
     <div className="no-scrollbar m-6 grid grid-cols-4 gap-4">
       <div className="col-span-3">
-        <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 gap-4 mx-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-10">
           {list.map((item) => {
             const isItemLoading = loadingState[item.id] || false;
             return (

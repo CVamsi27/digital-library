@@ -5,8 +5,8 @@ export const Footer = (): JSX.Element => {
   const d = new Date();
   const year = d.getFullYear();
   return (
-    <footer className="bottom-0 w-full flex justify-between border-t-1 p-2">
-      <div className="flex flex-col lg:flex-row gap-2 items-center">
+    <footer className="bottom-0 w-full flex flex-col md:flex-row justify-between border-t-1 p-2">
+      <div className="flex flex-row gap-2 items-center">
         <div className="flex items-center gap-2">
           <Copyright className="hover:text-primary-500" />
           <span className="text-base">{year}, Built with</span>
