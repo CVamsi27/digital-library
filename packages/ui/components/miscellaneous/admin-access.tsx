@@ -42,7 +42,6 @@ export function AccessView(): JSX.Element {
           });
           toast({
             message: "Book added Successfully!",
-            color: "green",
             duration: 3000,
           });
           if (message.endsWith("Access")) {
