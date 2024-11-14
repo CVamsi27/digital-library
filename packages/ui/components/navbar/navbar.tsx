@@ -6,35 +6,65 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-  Tooltip,
-  Input,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
 } from "@nextui-org/react";
 import { Logo } from "../../icons/logo";
-import { Cart } from "../../icons/cart";
 import { ThemeSwitcher } from "../theme/theme-switcher";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { Search } from "../../icons/search";
+
+import { useState } from "react";
+import { NavSearch } from "./nav-search";
 
 export function NavbarCustom() {
   const { data: session } = useSession();
   const router = useRouter();
   const params = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuItems: string[] = [
+    "Home",
+    "Category",
+    "Collection",
+    "Bookmark",
+    "Login",
+  ];
+
+  const getButtonStyles1 = (index: number) => {
+    if (index === 4) {
+      return session ? "bg-danger text-background" : "bg-primary text-background";
+    }
+    return "hover:bg-primary hover:text-background";
+  };
+
+  const getButtonStyles2 = (index: number, item: string) => {
+    if (index === 4) {
+      return session ? "Log Out" : "Log In";
+    }
+    return item;
+  };
+
   return (
-    <Navbar isBordered maxWidth="full">
+    <Navbar isBordered maxWidth="full" onMenuOpenChange={setIsMenuOpen}>
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="lg:hidden"
+      />
       <Link href="/">
         <NavbarContent justify="start">
-          <NavbarBrand className="mr-4">
-            <Logo />
-            <p className="sm:block font-bold text-inherit ml-2">
+          <NavbarBrand className="sm:mr-4">
+            <Logo className="hidden sm:block" />
+            <p className="hidden md:block font-bold text-inherit sm:ml-2">
               Digital Library
             </p>
           </NavbarBrand>
         </NavbarContent>
       </Link>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden lg:flex gap-4" justify="center">
         <NavbarItem isActive={params === "/"}>
           <Link className={params === "/" ? "text-primary-500" : ""} href="/">
             Home
@@ -70,58 +100,50 @@ export function NavbarCustom() {
 
       <NavbarContent as="div" className="items-center" justify="end">
         <ThemeSwitcher />
-        <Input
-          className="max-w-xs"
-          label="Search"
-          isClearable
-          radius="lg"
-          size="sm"
-          classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-          }}
-          placeholder="Type to search..."
-          startContent={
-            <Search className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-          }
-        />
-        <Tooltip content="View Cart">
-          <Button
-            isIconOnly
-            onPress={() => {
-              router.push("/cart");
-            }}
-          >
-            <Cart />
-          </Button>
-        </Tooltip>
-        {session ? (
-          <Button
-            key="logout"
-            color="danger"
-            onPress={() => {
-              void signOut();
-            }}
-          >
-            Log Out
-          </Button>
-        ) : (
-          <Button
-            key="logout"
-            color="primary"
-            onPress={() => {
+        <NavSearch />
+        <Button
+          key={!session ? "login" : "logout"}
+          color={!session ? "primary" : "danger"}
+          onPress={() => {
+            if (!session) {
               router.push("/signin/" + params);
-            }}
-          >
-            Log In
-          </Button>
-        )}
+            } else {
+              void signOut();
+            }
+          }}
+          className="hidden sm:block"
+        >
+          {!session ? "Log In" : "Log Out"}
+        </Button>
       </NavbarContent>
+
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <button
+              className={
+                `w-full rounded-md px-1 ` + getButtonStyles1(index)
+              }
+              onClick={() => {
+                setIsMenuOpen(false);
+                if (index === 0) router.push("/");
+                else if (index === 1) router.push("/categories");
+                else if (index === 2) router.push("/collection/10");
+                else if (index === 3) router.push("/cart");
+                else if (index === 4) {
+                  if (!session) {
+                    router.push("/signin/" + params);
+                  } else {
+                    void signOut();
+                  }
+                }
+              }}
+            >
+              {getButtonStyles2(index, item)}
+            </button>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   );
 }

@@ -3,8 +3,13 @@ import { signIn } from "next-auth/react";
 import { getProviders } from "next-auth/react";
 import { useQuery } from "react-query";
 import { Loading } from "../loading/loaging";
+import { useState } from "react";
 
 export function LoginView(): JSX.Element {
+  const [isLoginLoading, setIsLoginLoading] = useState<Record<string, boolean>>(
+    {},
+  );
+  const isAnyLoading = Object.values(isLoginLoading).some((state) => state);
   const retrieveProviders = async () => getProviders();
   const { data: providers, isLoading } = useQuery(
     "providersData",
@@ -15,7 +20,7 @@ export function LoginView(): JSX.Element {
       {isLoading || !providers ? (
         <Loading />
       ) : (
-        <div className="flex justify-center md:mt-20">
+        <div className="flex justify-center mt-10 md:mt-20">
           <Card>
             <CardHeader className="flex flex-col gap-2 text-xl font-bold">
               Log In Using
@@ -27,8 +32,14 @@ export function LoginView(): JSX.Element {
                     className="m-2"
                     color="primary"
                     size="lg"
+                    isLoading={isLoginLoading[provider.name]}
+                    disabled={isAnyLoading && !isLoginLoading[provider.name]}
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
                     onPress={async () => {
+                      setIsLoginLoading((prev) => ({
+                        ...prev,
+                        [provider.name]: true,
+                      }));
                       await signIn(provider.id);
                     }}
                   >

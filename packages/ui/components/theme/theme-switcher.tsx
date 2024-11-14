@@ -32,6 +32,7 @@ export function ThemeSwitcher() {
           setTheme("dark");
         }
       }}
+      // className="hidden sm:visible"
     ></Switch>
   );
 }

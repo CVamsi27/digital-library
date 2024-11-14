@@ -12,13 +12,13 @@ import {
   Image,
   Button,
 } from "@nextui-org/react";
-import { OrderPlacedModal } from "../modal/order-placed-modal";
 import { Star } from "../../icons/star";
 import { QuantityCounter } from "../counter/quantity-counter";
 import { CartProps } from "../../../types";
 import { t } from "../../../trpc/client/client";
 import { useState } from "react";
 import { useToast } from "../../hooks";
+import { ContinueShopping } from "./continue-shopping";
 
 export function CartTable({
   cartDetails,
@@ -45,9 +45,9 @@ export function CartTable({
   }, 0);
 
   return (
-    <div className="no-scrollbar m-6 grid grid-cols-4 gap-4">
-      <div className="col-span-3">
-        <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-10">
+    <div className="no-scrollbar my-6 sm:my-6 sm:mx-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-10">
           {list.map((item) => {
             const isItemLoading = loadingState[item.id] || false;
             return (
@@ -124,7 +124,7 @@ export function CartTable({
           })}
         </div>
       </div>
-      <div className="col-span-1 grid grid-cols-1">
+      <div className="grid grid-cols-1 sm:col-start-1 sm:col-span-2 lg:col-span-1 xl:col-span-2 lg:col-start-2 xl:col-start-2 mx-6">
         <Table aria-label="Price Details">
           <TableHeader>
             <TableColumn>Price Details</TableColumn>
@@ -161,7 +161,7 @@ export function CartTable({
         </Table>
 
         <div className="flex justify-center mt-2">
-          <OrderPlacedModal cartLength={list.length} />
+          <ContinueShopping />
         </div>
       </div>
     </div>
