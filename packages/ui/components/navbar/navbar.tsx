@@ -20,7 +20,7 @@ import { useState } from "react";
 import { NavSearch } from "./nav-search";
 
 export function NavbarCustom() {
-  const { data: session } = useSession();
+  const { data: session } = useSession() || {};
   const router = useRouter();
   const params = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

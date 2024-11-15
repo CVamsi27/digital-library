@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "db-deploy": "pnpm prisma migrate deploy",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
-    "postinstall": "prisma generate"
+    "db:push": "prisma db push --skip-generate"
   },
   "keywords": [],
   "author": "",
