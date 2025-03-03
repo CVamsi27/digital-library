@@ -5,6 +5,7 @@ import { collectionSchema, collectionEditSchema } from "../../../zod-schemas";
 import { getServerSession } from "next-auth/next";
 import { TRPCError } from "@trpc/server";
 import { Role } from "@prisma/client";
+import { GoogleBooksResponseSchema } from "../../../types";
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -215,7 +216,7 @@ export const appRouter = router({
       });
 
       if (ifExists) {
-        return "Book already exists in Cart";
+        return "Book already Bookmarked";
       }
       await prisma.cart.create({
         data: {
@@ -224,7 +225,7 @@ export const appRouter = router({
         },
       });
 
-      return "Book added in cart";
+      return "Book added in Bookmark";
     }),
 
   deleteFromCart: privateProcedure
@@ -235,7 +236,7 @@ export const appRouter = router({
           id: input.cartId,
         },
       });
-      if (result) return "Book removed from Cart";
+      if (result) return "Book removed from Bookmark";
       else return "Failed";
     }),
 
@@ -253,7 +254,7 @@ export const appRouter = router({
       },
     });
     if (result.count > 0) return "Order placed";
-    return "Cart is empty";
+    return "Empty";
   }),
 
   editCollection: privateProcedure
@@ -300,6 +301,20 @@ export const appRouter = router({
       if (result) return "Quantity updated";
       return "Error";
     }),
+
+  getAllBooks: publicProcedure
+    .query(async () => {
+      try {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=books&key=${process.env.BOOK_API_KEY}`)
+        if (!response.ok) {
+          return `Error fetching books: ${response.statusText}`;
+        }
+        const booksData = await response.json();
+        return GoogleBooksResponseSchema.parse(booksData);
+      } catch (error) {
+        return `Error fetching books: ${error}`;
+      }
+    })
 });
 
 export type AppRouter = typeof appRouter;
