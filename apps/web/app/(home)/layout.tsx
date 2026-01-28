@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "../providers";
 import Navbar from "../_lib/components/navbar";
-import { getServerSession } from "next-auth";
 import { Footer } from "ui/components";
+import { auth } from "next-auth/v5";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await auth();
   return (
     <html lang="en" className="h-full">
       <body

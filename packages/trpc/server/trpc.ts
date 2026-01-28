@@ -1,35 +1,23 @@
-import { TRPCError, initTRPC } from "@trpc/server";
-import { getServerSession } from "next-auth/next";
-import prisma from "../../prisma";
+import { initTRPC } from "@trpc/server";
+import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { auth } from "next-auth/v5";
 
-const t = initTRPC.create();
+export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+  const session = await auth();
+  return {
+    session,
+  };
+};
 
-const isAuth = t.middleware(async (opts) => {
-  const session = await getServerSession();
-
-  if (!session || !session?.user?.email) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-
-  const userId = await prisma.user.findFirst({
-    select: {
-      id: true,
-    },
-    where: {
-      email: session?.user?.email,
-    },
-  });
-
-  return opts.next({
-    ctx: {
-      userId: userId?.id,
-      name: session?.user?.name,
-      email: session?.user?.email,
-      expires: session.expires,
-    },
-  });
-});
+const t = initTRPC.context<typeof createTRPCContext>().create();
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
-export const privateProcedure = t.procedure.use(isAuth);
+export const protectedProcedure = t.procedure.use(
+  t.middleware(async ({ ctx, next }) => {
+    if (!ctx.session?.user) {
+      throw new Error("Unauthorized");
+    }
+    return next();
+  })
+);

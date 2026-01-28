@@ -3,51 +3,16 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  username  String?  @unique
   email     String   @unique
-  name      String?
-  role      Role     @default(USER)
-  cartItems Cart[]
-}
-
-model Collection {
-  id            Int      @id @default(autoincrement())
-  title         String   @unique
-  author        String
-  publishedDate DateTime @default(now()) @db.Date
-  rating        Float    @default(0)
-  available     Boolean  @default(true)
-  category      Category @relation(fields: [categoryId], references: [id])
-  categoryId    Int
-  img           String?
-  price         Float    @default(1)
-  Cart          Cart[]
-}
-
-model Cart {
-  id           Int        @id @default(autoincrement())
-  user         User       @relation(fields: [userID], references: [id])
-  userID       Int
-  collection   Collection @relation(fields: [collectionId], references: [id])
-  collectionId Int
-  quantity     Int        @default(1)
-}
-
-model Category {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  color      String
-  Collection Collection[]
-}
-
-enum Role {
-  USER
-  ADMIN
+  password  String?
+  provider  String   @default("credentials")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

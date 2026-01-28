@@ -12,117 +12,127 @@ import {
   Image,
   Button,
 } from "@nextui-org/react";
-import { Star } from "../../icons/star";
 import { QuantityCounter } from "../counter/quantity-counter";
-import { CartProps } from "../../../types";
-import { t } from "../../../trpc/client/client";
+import { CartItem } from "../../../types";
+import { useCart } from "../../context";
 import { useState } from "react";
 import { useToast } from "../../hooks";
 import { ContinueShopping } from "./continue-shopping";
 
-export function CartTable({
-  cartDetails,
-  refetchCartData,
-}: CartProps): JSX.Element {
+export function CartTable({ cart }: { cart: CartItem[] }): JSX.Element {
   const { toast } = useToast();
-  const list = Object.values(cartDetails);
+  const { removeFromCart, updateQuantity } = useCart();
+  const [loadingState, setLoadingState] = useState<Record<string, boolean>>({});
+
   const options = { year: "numeric", month: "short", day: "2-digit" };
 
-  const { mutateAsync: deleteCartItem, isLoading: isLoadingDeleteItem } =
-    t.deleteFromCart.useMutation();
-  const [loadingState, setLoadingState] = useState<Record<number, boolean>>({});
-
-  const [quantity, setQuantity] = useState<Record<number, number>>(
-    cartDetails.reduce((result: Record<number, number>, item) => {
-      result[item.id] = item.quantity;
-      return result;
-    }, {}),
-  );
-
-  const totalPrice = list.reduce((accumulator, val) => {
-    const itemPrice = quantity[val.id] * val.collection.price;
-    return accumulator + itemPrice;
+  const totalPrice = cart.reduce((accumulator, val) => {
+    return accumulator + val.quantity * val.price;
   }, 0);
 
+  const handleCheckout = () => {
+    const isbns = cart
+      .map((item) => item.isbn10)
+      .filter(Boolean)
+      .join(",");
+    const url = `https://www.amazon.com/gp/aws/cart/add.html?${cart
+      .map((item, index) => {
+        if (item.isbn10) {
+          return `ASIN.${index + 1}=${item.isbn10}&Quantity.${index + 1}=${item.quantity}`;
+        }
+        return null;
+      })
+      .filter(Boolean)
+      .join("&")}`;
+    window.location.href = url;
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <div className="no-scrollbar my-6 sm:my-6 sm:mx-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <motion.div
+      className="no-scrollbar my-6 sm:my-6 sm:mx-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-10">
-          {list.map((item) => {
+        <motion.div
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-10"
+          variants={containerVariants}
+        >
+          {cart.map((item) => {
             const isItemLoading = loadingState[item.id] || false;
             return (
-              <Card shadow="sm" key={item.id} className="mx-6 mb-6 p-2">
-                <CardBody className="overflow-visible p-0 flex items-center justify-center">
-                  <Image
-                    shadow="sm"
-                    radius="lg"
-                    width="100%"
-                    alt={item.collection.title}
-                    className="object-cover h-[240px] w-[140px]"
-                    src={item.collection.img ?? ""}
-                  />
-                  <div className="w-full mt-4 ml-4 text-left">
-                    <div className="flex mr-4 justify-end">
-                      <p className="mr-1">{item.collection.rating}</p>
-                      <Star />
+              <motion.div key={item.id} variants={itemVariants} data-testid="cart-item">
+                <Card shadow="lg" className="mx-6 mb-6 p-2 hover:shadow-2xl transition-all duration-300">
+                  <CardBody className="overflow-visible p-0 flex items-center justify-center">
+                    <Image
+                      shadow="sm"
+                      radius="lg"
+                      width="100%"
+                      alt={item.title}
+                      className="object-cover h-[240px] w-[140px] transition-transform duration-300 hover:scale-105"
+                      src={item.image}
+                    />
+                    <div className="w-full mt-4 ml-4 text-left">
+                      <p className="p-1 font-extrabold text-lg line-clamp-2">{item.title}</p>
+                      <p className="p-1 text-xs text-gray-600">
+                        by {item.authors.join(", ")}
+                      </p>
+                      <p className="p-1 text-xl font-semibold text-green-600">${item.price}</p>
                     </div>
-                    <p className="p-1 font-extrabold text-lg">
-                      {item.collection.title}
-                    </p>
-                    <p className="p-1 text-xs">
-                      by {item.collection.author} |{" "}
-                      {new Date(
-                        item.collection.publishedDate,
-                      ).toLocaleDateString(
-                        "en-US",
-                        options as Intl.DateTimeFormatOptions,
-                      )}{" "}
-                      | {item.collection.category.name}
-                    </p>
-                    <p className="p-1 text-xl">${item.collection.price}</p>
-                  </div>
-                </CardBody>
-                <CardFooter className="justify-between">
-                  <QuantityCounter
-                    itemId={item.id}
-                    collectionId={item.collectionId}
-                    quantity={quantity[item.id]}
-                    setQuantity={setQuantity}
-                  />
-                  <Button
-                    isDisabled={isItemLoading}
-                    color="danger"
-                    className="ml-2"
-                    isLoading={isItemLoading}
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- required
-                    onPress={async () => {
-                      setLoadingState((prevLoadingState) => ({
-                        ...prevLoadingState,
-                        [item.id]: true,
-                      }));
+                  </CardBody>
+                  <CardFooter className="justify-between">
+                    <QuantityCounter
+                      itemId={item.id}
+                      collectionId={item.id} // not used
+                      quantity={item.quantity}
+                      setQuantity={(newQuantity) => updateQuantity(item.id, newQuantity)}
+                    />
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button
+                        isDisabled={isItemLoading}
+                        color="danger"
+                        className="ml-2 shadow-md hover:shadow-lg transition-shadow duration-200"
+                        isLoading={isItemLoading}
+                        onPress={() => {
+                          setLoadingState((prevLoadingState) => ({
+                            ...prevLoadingState,
+                            [item.id]: true,
+                          }));
 
-                      const result = await deleteCartItem({
-                        cartId: item.id,
-                      });
+                          removeFromCart(item.id);
 
-                      if (!isLoadingDeleteItem) {
-                        setLoadingState((prevLoadingState) => ({
-                          ...prevLoadingState,
-                          [item.id]: false,
-                        }));
-                      }
+                          setLoadingState((prevLoadingState) => ({
+                            ...prevLoadingState,
+                            [item.id]: false,
+                          }));
 
-                      toast({ message: result });
-                      await refetchCartData();
-                    }}
-                  >
-                    Remove
-                  </Button>
-                </CardFooter>
-              </Card>
+                          toast({ message: "Removed from cart" });
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    </motion.div>
+                  </CardFooter>
+                </Card>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
       <div className="grid grid-cols-1 sm:col-start-1 sm:col-span-2 lg:col-span-1 xl:col-span-2 lg:col-start-2 xl:col-start-2 mx-6">
         <Table aria-label="Price Details">
@@ -132,13 +142,13 @@ export function CartTable({
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell>Price ({list.length} items)</TableCell>
+              <TableCell>Price ({cart.length} items)</TableCell>
               <TableCell className="text-right">${totalPrice}</TableCell>
             </TableRow>
             <TableRow key="2">
               <TableCell>Delivery Charges</TableCell>
               <TableCell className="text-right">
-                {totalPrice + totalPrice === 0 ? "-" : "Free"}
+                {totalPrice === 0 ? "-" : "Free"}
               </TableCell>
             </TableRow>
             <TableRow key="3">
@@ -160,6 +170,11 @@ export function CartTable({
           </TableBody>
         </Table>
 
+        <div className="flex justify-center mt-2">
+          <Button color="primary" onPress={handleCheckout}>
+            Checkout
+          </Button>
+        </div>
         <div className="flex justify-center mt-2">
           <ContinueShopping />
         </div>

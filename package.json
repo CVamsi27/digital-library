@@ -5,7 +5,9 @@
     "dev": "dotenv -- turbo run dev",
     "deploy": "turbo run build --scope=web --includeDependencies --no-deps",
     "lint": "turbo run lint -- --quiet",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e --filter='./apps/web'"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
@@ -18,6 +20,7 @@
   "dependencies": {
     "@prisma/client": "5.4.2",
     "dotenv-cli": "^7.3.0",
-    "next-auth": "^4.23.2"
+    "next-auth": "^4.23.2",
+    "bcryptjs": "^2.4.3"
   }
 }

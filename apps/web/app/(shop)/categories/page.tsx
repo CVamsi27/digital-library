@@ -1,18 +1,15 @@
 "use client";
-import { CategoryCard, Loading } from "ui";
-import { t } from "trpc/client/client";
+import { CategoryCard } from "ui";
+
+const categories = [
+  { id: 0, name: "All", color: "gray" },
+  { id: 1, name: "Fiction", color: "blue" },
+  { id: 2, name: "Non-Fiction", color: "green" },
+  { id: 3, name: "Science", color: "red" },
+  { id: 4, name: "History", color: "yellow" },
+  { id: 5, name: "Biography", color: "purple" },
+];
 
 export default function Categories() {
-  const { data: categories, isLoading } = t.getCategories.useQuery();
-  return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : !categories ? (
-        <div></div>
-      ) : (
-        <CategoryCard {...categories} />
-      )}
-    </>
-  );
+  return <CategoryCard categories={categories} />;
 }
