@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "../providers";
 import Navbar from "../_lib/components/navbar";
-import { getServerSession } from "next-auth";
-import Provider from "@/app/_trpc/Provider";
 import { Footer } from "ui/components";
 import { ToastProvider } from "ui";
+import { auth } from "next-auth/v5";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +22,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await auth();
   return (
     <html lang="en" className="h-full">
       <body
@@ -34,9 +33,7 @@ export default async function RootLayout({
           <main className="relative flex flex-col h-full">
             <Navbar />
             <div className="flex-grow flex-1 bg-background">
-              <Provider>
-                <ToastProvider>{children}</ToastProvider>
-              </Provider>
+              <ToastProvider>{children}</ToastProvider>
             </div>
             <Footer />
           </main>

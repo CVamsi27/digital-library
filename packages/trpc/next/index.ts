@@ -1,1 +1,1 @@
-export * from "@trpc/next";
+export { createTRPCNext } from "@trpc/next";

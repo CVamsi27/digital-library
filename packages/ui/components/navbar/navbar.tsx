@@ -20,7 +20,7 @@ import { useState } from "react";
 import { NavSearch } from "./nav-search";
 
 export function NavbarCustom() {
-  const { data: session } = useSession() || {};
+  const { data: session } = useSession();
   const router = useRouter();
   const params = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ export function NavbarCustom() {
     "Home",
     "Category",
     "Collection",
-    "Bookmark",
+    "Cart",
     "Login",
   ];
 
@@ -48,21 +48,26 @@ export function NavbarCustom() {
   };
 
   return (
-    <Navbar isBordered maxWidth="full" onMenuOpenChange={setIsMenuOpen}>
-      <NavbarMenuToggle
-        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        className="lg:hidden"
-      />
-      <Link href="/">
-        <NavbarContent justify="start">
-          <NavbarBrand className="sm:mr-4">
-            <Logo className="hidden sm:block" />
-            <p className="hidden md:block font-bold text-inherit sm:ml-2">
-              Digital Library
-            </p>
-          </NavbarBrand>
-        </NavbarContent>
-      </Link>
+    <motion.div
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Navbar isBordered maxWidth="full" onMenuOpenChange={setIsMenuOpen} className="backdrop-blur-md bg-background/80">
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="lg:hidden"
+        />
+        <Link href="/">
+          <NavbarContent justify="start">
+            <NavbarBrand className="sm:mr-4">
+              <Logo className="hidden sm:block" />
+              <p className="hidden md:block font-bold text-inherit sm:ml-2 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Digital Library
+              </p>
+            </NavbarBrand>
+          </NavbarContent>
+        </Link>
 
       <NavbarContent className="hidden lg:flex gap-4" justify="center">
         <NavbarItem isActive={params === "/"}>
@@ -83,7 +88,7 @@ export function NavbarCustom() {
             className={
               params.includes("/collection/") ? "text-primary-500" : ""
             }
-            href="/collection/10"
+            href="/collection/all"
           >
             Collection
           </Link>
@@ -106,7 +111,7 @@ export function NavbarCustom() {
           color={!session ? "primary" : "danger"}
           onPress={() => {
             if (!session) {
-              router.push("/signin/" + params);
+              router.push("/signin");
             } else {
               void signOut();
             }
@@ -128,11 +133,11 @@ export function NavbarCustom() {
                 setIsMenuOpen(false);
                 if (index === 0) router.push("/");
                 else if (index === 1) router.push("/categories");
-                else if (index === 2) router.push("/collection/10");
+                else if (index === 2) router.push("/collection/all");
                 else if (index === 3) router.push("/cart");
                 else if (index === 4) {
                   if (!session) {
-                    router.push("/signin/" + params);
+                    router.push("/signin");
                   } else {
                     void signOut();
                   }
@@ -144,6 +149,7 @@ export function NavbarCustom() {
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
-    </Navbar>
+      </Navbar>
+    </motion.div>
   );
 }
